@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-const ProductDetailDesc = () => {
+const ProductDetail = () => {
   const productDetail = [
     { image: '/images/detail1.png' },
     { image: '/images/detail2.png' },
@@ -18,23 +18,26 @@ const ProductDetailDesc = () => {
     { image: '/images/detail5.png' }
   ]
 
-  const route = useRouter()
-  const [active, setActive] = useState('/')
-  useEffect(() => {
-    setActive(route.pathname)
-  }, [route.pathname])
+  const [active, setActive] = useState('description')
+
   const menu = [
-    { link: '/ProductDetailDesc', name: 'Description' },
-    { link: '/Review', name: 'Review' },
-    { link: '/AdditionalInformation', name: 'Additional Information' },
-    { link: '/AboutBrand', name: 'About Brand' },
-    { link: '/ShippingDelivery', name: 'Shipping & Delivery' }
+    { onclick: 'description', name: 'Description' },
+    { onclick: 'review', name: 'Review' },
+    { onclick: 'aboutBrand', name: 'Additional Information' },
+    { onclick: 'additionalInformation', name: 'About Brand' },
+    { onclick: 'shippingDelivery', name: 'Shipping & Delivery' }
   ]
 
   const relatedProducts = [
     { image: '/images/detail7.png', name: 'Coaster 506222-CO Loveseat', price: 'Rp. 400.000' },
-    { image: '/images/detail 8.png', name: 'Coaster 506222-CO Loveseat', price: 'Rp. 400.000' },
-    { image: '/images/detail 9.png', name: 'Coaster 506222-CO Loveseat', price: 'Rp. 400.000' },
+    { image: '/images/detail8.png', name: 'Coaster 506222-CO Loveseat', price: 'Rp. 400.000' },
+    { image: '/images/detail9.png', name: 'Coaster 506222-CO Loveseat', price: 'Rp. 400.000' },
+  ]
+
+  const reviewProducts = [
+    { image: '/images/review1.png', comment: 'Theme is very flexible and easy to use. Perfect for us. Customer support has been excellent and answered every question we`ve thrown at them with 12 hours.' },
+    { image: '/images/review2.png', comment: 'Exceptional service, beautiful and straightforward theme! Can`t recommend enough.' },
+    { image: '/images/review3.png', comment: '``Highly customizable. Excellent design. Customer services has exceeded my expectation. They are quick to answer and even when they don`t know the answer right away. They`ll work with you towards a solution.``' },
   ]
   return (
     <>
@@ -123,7 +126,7 @@ const ProductDetailDesc = () => {
             </Col>
           </Row>
           <Row>
-            <Col xl={6} className='text-center mt-5'>
+            <Col xl={12} className='text-center mt-5'>
               <div className='d-flex'>
                 <div className={`${styles.counter} py-3 px-3`}>
                   <FaPlus className='me-4' />
@@ -201,30 +204,118 @@ const ProductDetailDesc = () => {
                 {menu.map(item => {
                   return (
                     <li key={item.name}>
-                      <Link href={item.link}>
-                        <a className={`d-flex flex-row align-items-center mt-4 fs-5 ${active === item.link ? 'active' : ''}`}>
+                      <div className='cursor-pointer' onClick={() => { setActive(item.onclick) }}>
+                        <a className={`${styles.cursor} d-flex flex-row align-items-center  mt-4 fs-5 ${active === item.onclick ? 'active' : ''}`}>
                           {item.name}
                         </a>
-                      </Link>
+                      </div>
                     </li>
                   )
                 })}
               </ul>
             </Col>
           </Row>
-          <Row>
-            <Col xl={6}>
-              <Image src='/images/detail6.png' width={500} height={317} alt='detail' />
-            </Col>
-            <Col xl={6}>
-              <p>Donec accumsan auctor iaculis. Sed suscipit arcu ligula, at egestas magna molestie a. Proin ac ex maximus, ultrices justo eget, sodales orci. Aliquam egestas libero ac turpis pharetra, in vehicula lacus scelerisque. Vestibulum ut sem laoreet, feugiat tellus at, hendrerit arcu..</p>
-              <ul>
-                <li>Maecenas eu ante a elit tempus fermentum. Aliquam commodo tincidunt semper</li>
-                <li>Aliquam est et tempus. Eaecenas libero ante, tincidunt vel</li>
-              </ul>
-              <p>Nunc lacus elit, faucibus ac laoreet sed, dapibus ac mi. Maecenas eu ante a elit tempus fermentum. Aliquam commodo tincidunt semper. Phasellus accum</p>
-            </Col>
-          </Row>
+          {console.log(active)}
+          {active === 'description' &&
+            <>
+              <Row>
+                <Col xl={6}>
+                  <Image src='/images/detail6.png' width={500} height={317} alt='detail' />
+                </Col>
+                <Col xl={6}>
+                  <p>Donec accumsan auctor iaculis. Sed suscipit arcu ligula, at egestas magna molestie a. Proin ac ex maximus, ultrices justo eget, sodales orci. Aliquam egestas libero ac turpis pharetra, in vehicula lacus scelerisque. Vestibulum ut sem laoreet, feugiat tellus at, hendrerit arcu..</p>
+                  <ul>
+                    <li>Maecenas eu ante a elit tempus fermentum. Aliquam commodo tincidunt semper</li>
+                    <li>Aliquam est et tempus. Eaecenas libero ante, tincidunt vel</li>
+                  </ul>
+                  <p>Nunc lacus elit, faucibus ac laoreet sed, dapibus ac mi. Maecenas eu ante a elit tempus fermentum. Aliquam commodo tincidunt semper. Phasellus accum</p>
+                </Col>
+              </Row>
+            </>
+          }
+          {active === 'review' &&
+            <>
+              {reviewProducts.map(item => {
+                return (
+                  <>
+                    <Row className='justify-content-center align-items-center'>
+                      <Col xl={2}>
+                        <Image src={item.image} width={94} height={94} alt='detail' />
+                      </Col>
+                      <Col xl={5} className='py-4'>
+                        {item.comment}
+                        <Row className='py-4'>
+                          <Col xl={5}>
+                            <p className={`${styles.text} text-muted`}>35 mins ago, 15 November 2019</p>
+                          </Col>
+                          <Col xl={5}>
+                            <p className={`${styles.text} `}>Reply</p>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                    <Row className='justify-content-center align-items-center'>
+                      <Col xl={2}>
+                      </Col>
+                      <Col xl={5} className='py-4'>
+                        <Row className='align-items-center'>
+                          <Col xl={2}>
+                            <Image src={item.image} width={94} height={94} alt='detail' />
+                          </Col>
+                          <Col xl={10} className='py-4'>
+                            {item.comment}
+                            <Row className='py-4'>
+                              <Col xl={6}>
+                                <p className={`${styles.text} text-muted`}>35 mins ago, 15 November 2019</p>
+                              </Col>
+                              <Col xl={5}>
+                                <p className={`${styles.text} `}>Reply</p>
+                              </Col>
+                            </Row>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                  </>
+                )
+              })}
+              <Row className='justify-content-center'>
+                <Col xl={7}>
+                  <h2>Leave A Comment</h2>
+                </Col>
+              </Row>
+              <Row className='justify-content-center'>
+                <Col xl={7}>
+                  <p>Your email address will not be published. Required fields are marked *</p>
+                </Col>
+              </Row>
+              <Row className='justify-content-center mb-3'>
+                <Col xl={7}>
+                  <Row>
+                    <Col xl={4}>
+                      <input className='w-100 px-4 py-2' placeholder='Name*'></input>
+                    </Col>
+                    <Col xl={4}>
+                      <input className='w-100 px-4 py-2' placeholder='Email*'></input>
+                    </Col>
+                    <Col xl={4}>
+                      <input className='w-100 px-4 py-2' placeholder='Website'></input>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+              <Row className='justify-content-center mb-3'>
+                <Col xl={7}>
+                  <input className='w-100 px-4 py-5' placeholder='Your Comment'></input>
+                </Col>
+              </Row>
+              <Row className='justify-content-center'>
+                <Col xl={7}>
+                  <button className={`${styles.button} w-25 py-3`}>Send</button>
+                </Col>
+              </Row>
+            </>
+          }
           <Row>
             <Col xl={12} className='text-center mt-5 mb-5'>
               <h1 className='fs-1 text-bold'>Related Products</h1>
@@ -252,9 +343,9 @@ const ProductDetailDesc = () => {
             </Col>
           </Row>
         </Row>
-      </Container>
+      </Container >
     </>
   )
 }
 
-export default ProductDetailDesc
+export default ProductDetail
