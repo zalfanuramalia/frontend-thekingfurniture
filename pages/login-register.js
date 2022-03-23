@@ -43,8 +43,8 @@ const LoginRegister = () => {
                     <button className={`${styles.button} px-5 py-3`}>Login</button>
                   </div>
                 </Col>
-                <Col xl={12}>
-                  <Row>
+                <Col xl={12} >
+                  <Row className='mb-5'>
                     <Col xl={4}>
                       <div className="form-check">
                         <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
