@@ -27,7 +27,7 @@ export default function NotFound() {
               </div>
               <div className={`${styles.right} col-12 col-lg-6`}>
                 <div className='mx-auto text-center mt-4'>
-                  <Image layout='' width={600} height={800} quality={100} src='/not-found.png' alt='phone' />
+                  <Image width={600} height={800} src='/images/not-found.png' alt='phone' />
                 </div>
               </div>
             </div>
