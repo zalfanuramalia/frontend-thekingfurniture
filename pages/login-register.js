@@ -3,8 +3,43 @@ import Head from 'next/head'
 import styles from '../styles/Auth.module.scss'
 import Link from "next/link"
 import Layout from '../components/Layout'
+import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
+import { login } from '../redux/actions/auth'
+import { register } from '../redux/actions/auth'
 
 const LoginRegister = () => {
+
+  const { auth } = useSelector(state => state)
+  const dispatch = useDispatch
+  const router = useRouter()
+
+  const onLogin = (e) => {
+    e.preventDefault()
+    const emailLogin = e.target.elements["emailLogin"].value;
+    const passwordLogin = e.target.elements["passwordLogin"].value;
+    dispatch(login(emailLogin, passwordLogin))
+
+    if (!auth.isError) {
+      alert('Login success!')
+      if (auth.token != null) {
+        router.push('/home')
+      }
+    }
+  }
+
+  const onRegis = (e) => {
+    e.preventDefault()
+    const emailRegis = e.target.elements["emailRegis"].value;
+    const passwordRegis = e.target.elements["passwordRegis"].value;
+    const id_role = e.target.elements["id_role"].value;
+    dispatch(register(emailRegis, passwordRegis, id_role))
+
+    if (!auth.isError) {
+      alert('Register Success!')
+    }
+  }
+
   return (
     <>
       <Layout>
@@ -28,21 +63,23 @@ const LoginRegister = () => {
                     <h3>Login</h3>
                   </div>
                 </Col>
-                <Col xl={12} className='mb-3'>
-                  <div>
-                    <input className='w-100 px-4 py-3' placeholder='Username or email address'></input>
-                  </div>
-                </Col>
-                <Col xl={12} className='mb-4'>
-                  <div>
-                    <input className='w-100 px-4 py-3' placeholder='Password'></input>
-                  </div>
-                </Col>
-                <Col xl={12} className='mb-5'>
-                  <div>
-                    <button className={`${styles.button} px-5 py-3`}>Login</button>
-                  </div>
-                </Col>
+                <Form onSubmit={onLogin}>
+                  <Col xl={12} className='mb-3'>
+                    <div>
+                      <input id='emailLogin' name='emailLogin' className='w-100 px-4 py-3' placeholder='Username or email address'></input>
+                    </div>
+                  </Col>
+                  <Col xl={12} className='mb-4'>
+                    <div>
+                      <input id='passwordLogin' name='passwordLogin' className='w-100 px-4 py-3' placeholder='Password'></input>
+                    </div>
+                  </Col>
+                  <Col xl={12} className='mb-5'>
+                    <div>
+                      <button type='submit' className={`${styles.button} px-5 py-3`}>Login</button>
+                    </div>
+                  </Col>
+                </Form>
                 <Col xl={12} >
                   <Row className='mb-5'>
                     <Col xl={4}>
@@ -67,39 +104,41 @@ const LoginRegister = () => {
                     <h3>Create Account</h3>
                   </div>
                 </Col>
-                <Col xl={12} className='mb-3'>
-                  <div>
-                    <input className='w-100 px-4 py-3' placeholder='Email address'></input>
-                  </div>
-                </Col>
-                <Col xl={12} className='mb-4'>
-                  <div>
-                    <input className='w-100 px-4 py-3' placeholder='Password'></input>
-                  </div>
-                </Col>
-                <Col xl={12} className='mb-4'>
-                  <div className='d-flex'>
-                    <div className='me-5'>
-                      <label className='position-relative align-items-center d-flex'>
-                        <input type="radio" className='position-absolute' name="id_role" />
-                        <div className="d-inline-block"></div>
-                        <div className="text d-inline-block ms-4">I`m Customer</div>
-                      </label>
+                <Form onSubmit={onRegis}>
+                  <Col xl={12} className='mb-3'>
+                    <div>
+                      <input id='emailRegis' name='emailRegis' className='w-100 px-4 py-3' placeholder='Email address'></input>
                     </div>
-                    <div className='me-5'>
-                      <label className='position-relative align-items-center d-flex'>
-                        <input type="radio" className='position-absolute' name="id_role" />
-                        <div className="d-inline-block"></div>
-                        <div className="text d-inline-block ms-4">I`m Seller</div>
-                      </label>
+                  </Col>
+                  <Col xl={12} className='mb-4'>
+                    <div>
+                      <input id='passwordRegis' name='passwordRegis' className='w-100 px-4 py-3' placeholder='Password'></input>
                     </div>
-                  </div>
-                </Col>
-                <Col xl={12}>
-                  <div>
-                    <button className={`${styles.button} px-5 py-3`}>Register</button>
-                  </div>
-                </Col>
+                  </Col>
+                  <Col xl={12} className='mb-4'>
+                    <div className='d-flex'>
+                      <div className='me-5'>
+                        <label className='position-relative align-items-center d-flex'>
+                          <input type="radio" className='position-absolute' value='1' name="id_role" />
+                          <div className="d-inline-block"></div>
+                          <div className="text d-inline-block ms-4">I`m Customer</div>
+                        </label>
+                      </div>
+                      <div className='me-5'>
+                        <label className='position-relative align-items-center d-flex'>
+                          <input type="radio" className='position-absolute' value='2' name="id_role" />
+                          <div className="d-inline-block"></div>
+                          <div className="text d-inline-block ms-4">I`m Seller</div>
+                        </label>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col xl={12}>
+                    <div>
+                      <button type='submit' className={`${styles.button} px-5 py-3`}>Register</button>
+                    </div>
+                  </Col>
+                </Form>
               </Row>
             </Col>
           </Row>
