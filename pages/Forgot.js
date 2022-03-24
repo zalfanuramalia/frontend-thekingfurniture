@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { forgot } from '../redux/actions/auth'
 import Layout from '../components/Layout'
 
-const Forgot = () => {
+const Forgotpassword = () => {
 
   const dispatch = useDispatch()
 
@@ -65,4 +65,4 @@ const Forgot = () => {
   )
 }
 
-export default Forgot
+export default Forgotpassword
