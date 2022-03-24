@@ -12,7 +12,7 @@ import Head from "next/head";
 import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
-const Profile = () => {
+const ProductPromo = () => {
     const [value, setValue] =  React.useState([2,500]);
 
     const rangeSelector = (event, newValue) => {
@@ -271,4 +271,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default ProductPromo

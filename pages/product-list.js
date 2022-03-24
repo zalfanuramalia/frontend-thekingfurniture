@@ -1,6 +1,6 @@
 import { Container, Row, Col, Card, Button, Pagination } from "react-bootstrap"
 import Image from "next/image";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import styles from "../styles/product-list.module.scss"
@@ -8,14 +8,28 @@ import mask from "../public/images/Mask.png"
 import {GoTriangleDown} from "react-icons/go"
 import product from "../public/images/product.png"
 import Head from "next/head";
+import { useDispatch, useSelector } from "react-redux";
+import { getColors } from "../redux/actions/color";
+import { useRouter } from "next/router";
 
-const Profile = () => {
+const ProductList = () => {
+    const {color} = useSelector(state=>state)
     const [value, setValue] =  React.useState([2,500]);
+    const dispatch = useDispatch()
+    const router = useRouter()
+
+    useEffect(()=>{
+        dispatch(getColors)
+    },[dispatch])
 
     const rangeSelector = (event, newValue) => {
         setValue(newValue);
         console.log(newValue)
       };
+
+    const goToProduct = () => {
+        router.push('/product-list-promo')
+    }
 
     return (
         <>
@@ -130,6 +144,17 @@ const Profile = () => {
                             </div>
                         </div>
                         <h3 className="mt-5">Colors</h3>
+                        {/* {!products.isLoading && <Row >
+                        {products.map((data, idx)=>{
+                            return(
+                                <Col key={data.id} onClick={()=>goToProduct(data.id)} style={{cursor: 'pointer'}}>
+                                    <div className="px-3">
+                                        <div>{data.name}</div>
+                                    </div>
+                                </Col>
+                            )
+                        })}
+                        </Row>} */}
                         <h3 className="mt-5">Size</h3>
                         <div className="mt-5 mb-5 position-relative">
                             <Image src={mask} width={260} height={280} alt="ShopNow" />
@@ -229,4 +254,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default ProductList
