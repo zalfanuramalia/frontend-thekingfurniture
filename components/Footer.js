@@ -9,7 +9,7 @@ import { RiTimer2Line } from 'react-icons/ri';
 
 const Footer = ({fullFooter}) => {
   const company = [
-    {name: 'ABOUT US', route: '/about'},
+    {name: 'ABOUT US', route: '/about-us'},
     {name: 'HELP CENTER', route: '/help-center'},
     {name: 'LICENCES', route: '/license'},
     {name: 'MARKET API', route: '/market'},
@@ -19,7 +19,7 @@ const Footer = ({fullFooter}) => {
     {name: 'THE COLLECTIONS', route: '/collection'},
     {name: 'SIZE GUIDE', route: '/size-guide'},
     {name: 'LOOKBOOK', route: '/lookbook'},
-    {name: 'INSTAGRAM SHOP', route: '/instagram'}
+    {name: 'INSTAGRAM SHOP', route: '/instagram-shop'}
   ]
   const contactUs = [
     {name: 'info@thekingfurniture.com', route: '/', icon: FiMail},
@@ -55,7 +55,7 @@ const Footer = ({fullFooter}) => {
             <Link href='/'>
             <Image layout='intrinsic' alt='logo' src='/images/logo.png' width={80} height={80} />
             </Link>
-            <p>The King Furniture is a shop that sells a variety of your home furniture needs.</p>
+            <p className='mt-4'>The King Furniture is a shop that sells a variety of your home furniture needs.</p>
             <div className='d-flex flex-row'>
               <div className='border border-white rounded-pill px-2  text-center'>
                 <FaFacebookF />
