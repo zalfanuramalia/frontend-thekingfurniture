@@ -1,4 +1,4 @@
-import { Container, Row, Col, Card, Button, Pagination } from "react-bootstrap"
+import { Container, Row, Col, Card, Button, Pagination, Form } from "react-bootstrap"
 import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -21,7 +21,8 @@ import SizeCard from "../components/SizeCard";
 
 const ProductList = () => {
     const {color, product, size} = useSelector(state=>state)
-    const [value, setValue] =  React.useState([2,500]);
+    const [value, setValue] =  React.useState([2,1000]);
+
     const dispatch = useDispatch()
     const router = useRouter()
     const [sizeValue, setSizeValue] = useState([])
@@ -42,6 +43,14 @@ const ProductList = () => {
         setValue(newValue);
         console.log(newValue)
       };
+
+    // const sortPrice = async (event) => {
+    //     event.preventDefault();
+    //     const url = () => `/product?search=${name}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+    //     let name = document.getElementById('name').value;
+    //     let minPrice = value[0];
+    //     let maxPrice = value[1];
+    // }
 
     const handleSizeValueChange = (e) => {
         const elementValue = e.target.previousElementSibling.value
@@ -118,6 +127,7 @@ const ProductList = () => {
                             <div>11</div>
                         </div>
                         </div>
+                        <Form>
                         <div style={{
                             margin: 'auto',
                             display: 'block',
@@ -129,11 +139,15 @@ const ProductList = () => {
                                 value={value}
                                 onChange={rangeSelector}
                                 valueLabelDisplay="auto"
+                                min={1}
+                                max={1000}
+                                aria-labelledby="range-slider"
                             />
                         </div>
-                        <Button className={`${styles.button} d-flex py-2`}>
+                        <Button type="submit" className={`${styles.button} d-flex py-2`}>
                             Filter
                         </Button>
+                        </Form>
                         <h3 className="mt-5">Brands</h3>
                         <div className=" mb-5">
                             <div >
