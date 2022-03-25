@@ -6,20 +6,36 @@ import Slider from '@material-ui/core/Slider';
 import styles from "../styles/product-list.module.scss"
 import mask from "../public/images/Mask.png"
 import {GoTriangleDown} from "react-icons/go"
-import product from "../public/images/product.png"
+import products from "../public/images/product.png"
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
 import { getColors } from "../redux/actions/color";
+import { getProduct } from "../redux/actions/productList"
+import { getSize } from "../redux/actions/size";
 import { useRouter } from "next/router";
+import { Checkbox } from "@material-ui/core";
+import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
+import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import empty from "../public/images/empty-input-image.png"
+import SizeCard from "../components/SizeCard";
 
 const ProductList = () => {
-    const {color} = useSelector(state=>state)
+    const {color, product, size} = useSelector(state=>state)
     const [value, setValue] =  React.useState([2,500]);
     const dispatch = useDispatch()
     const router = useRouter()
+    const [sizeValue, setSizeValue] = useState([])
 
     useEffect(()=>{
         dispatch(getColors)
+    },[dispatch])
+
+    useEffect(()=>{
+        dispatch(getProduct)
+    },[dispatch])
+
+    useEffect(()=>{
+        dispatch(getSize)
     },[dispatch])
 
     const rangeSelector = (event, newValue) => {
@@ -27,8 +43,17 @@ const ProductList = () => {
         console.log(newValue)
       };
 
-    const goToProduct = () => {
-        router.push('/product-list-promo')
+    const handleSizeValueChange = (e) => {
+        const elementValue = e.target.previousElementSibling.value
+        const tempArray = sizeValue
+        if (elementValue) {
+            if (sizeValue.indexOf(elementValue) >= 0) {
+                tempArray.splice(sizeValue.indexOf(elementValue), 1)
+                setSizeValue(tempArray)
+            } else {
+                setSizeValue([...sizeValue, elementValue])
+            }
+        }
     }
 
     return (
@@ -144,18 +169,29 @@ const ProductList = () => {
                             </div>
                         </div>
                         <h3 className="mt-5">Colors</h3>
-                        {/* {!products.isLoading && <Row >
-                        {products.map((data, idx)=>{
+                        {color.data && <Row >
+                        {color.data.map((data, idx)=>{
                             return(
-                                <Col key={data.id} onClick={()=>goToProduct(data.id)} style={{cursor: 'pointer'}}>
-                                    <div className="px-3">
-                                        <div>{data.name}</div>
-                                    </div>
+                                <Col md={3} key={data.id} style={{cursor: 'pointer'}}>
+                                    <div className="d-flex justify-content-between align-items-center py-2">
+                                        <div><Checkbox style={{backgroundColor: data.name}} size="small" icon={<CircleUnchecked /> } checkedIcon={<CircleCheckedFilled />}/></div>                                        
+                                    </div>                            
                                 </Col>
                             )
                         })}
-                        </Row>} */}
+                        </Row>}
                         <h3 className="mt-5">Size</h3>
+                        {size.data && <Row className="mt-2">
+                            {size.data.map((datas,  idx)=>{
+                                return(
+                                    <Col md={3} key={datas.id} style={{cursor: 'pointer'}} onClick={(e) => handleSizeValueChange(e)}>
+                                        <div className="d-flex justify-content-between align-items-center">
+                                            <SizeCard className={`${sizeValue.includes(String(datas.id)) ? 'btn-pallet-1 text-pallet-4' : 'btn-outline-pallet-1'} `} radioName={datas.label} value={datas.id} />
+                                        </div>
+                                    </Col>
+                                )
+                            })}
+                        </Row>}
                         <div className="mt-5 mb-5 position-relative">
                             <Image src={mask} width={260} height={280} alt="ShopNow" />
                             <Button className={`${styles.button} bottom-0 start-0 position-absolute mx-4 my-4`}>Shop Now</Button>
@@ -166,68 +202,18 @@ const ProductList = () => {
                             <div>Showing 1-16 of 39 Results</div>
                             <div className="me-5">Sort by <GoTriangleDown /></div>
                         </div>
-                        {/* <Row className="mt-5">
-                        {products.forEach(item => {                            
-                            return (                                
-                                <Col xl={4}>
-                                    <Image src={item.image} width={293} height={400} alt='product' />
-                                    <div className="text-center">{item.name}</div>
-                                    <div className="text-center">{item.price}</div>
-                                </Col>                                     
-                            )                            
-                        })}
-                        </Row> */}
+                        {product.data &&
                         <Row className="mt-5">
-                            <Col xl={4}>
-                                <Image src={product} width={293} height={400} alt='product' />
-                                <div className="text-center">Coaster 506222-CO Loveseat</div>
-                                <div className="text-center">$765.99</div>
-                            </Col>
-                            <Col xl={4}>
-                                <Image src={product} width={293} height={400} alt='product' />
-                                <div className="text-center">Coaster 506222-CO Loveseat</div>
-                                <div className="text-center">$765.99</div>
-                            </Col>
-                            <Col xl={4}>
-                                <Image src={product} width={293} height={400} alt='product' />
-                                <div className="text-center">Coaster 506222-CO Loveseat</div>
-                                <div className="text-center">$765.99</div>
-                            </Col>
-                        </Row>
-                        <Row className="mt-5">
-                            <Col xl={4}>
-                                <Image src={product} width={293} height={400} alt={product} />
-                                <div className="text-center">Coaster 506222-CO Loveseat</div>
-                                <div className="text-center">$765.99</div>
-                            </Col>
-                            <Col xl={4}>
-                                <Image src={product} width={293} height={400} alt={product} />
-                                <div className="text-center">Coaster 506222-CO Loveseat</div>
-                                <div className="text-center">$765.99</div>
-                            </Col>
-                            <Col xl={4}>
-                                <Image src={product} width={293} height={400} alt={product} />
-                                <div className="text-center">Coaster 506222-CO Loveseat</div>
-                                <div className="text-center">$765.99</div>
-                            </Col>
-                        </Row>
-                        <Row className="mt-5">
-                            <Col xl={4}>
-                                <Image src={product} width={293} height={400} alt={product} />
-                                <div className="text-center">Coaster 506222-CO Loveseat</div>
-                                <div className="text-center">$765.99</div>
-                            </Col>
-                            <Col xl={4}>
-                                <Image src={product} width={293} height={400} alt={product} />
-                                <div className="text-center">Coaster 506222-CO Loveseat</div>
-                                <div className="text-center">$765.99</div>
-                            </Col>
-                            <Col xl={4}>
-                                <Image src={product} width={293} height={400} alt={product} />
-                                <div className="text-center">Coaster 506222-CO Loveseat</div>
-                                <div className="text-center">$765.99</div>
-                            </Col>
-                        </Row>
+                            {product.data.map((datas, idx)=>{
+                                return (
+                                    <Col xl={4} key={datas.id} style={{cursor: 'pointer'}}>
+                                        <Image src={datas.product_images[0]?.image ? datas.product_images[0]?.image : empty} width={293} height={400} alt='products' layout="fixed" />
+                                        <div className="text-center">{datas.name}</div>
+                                        <div className="text-center">$ {datas.price}</div>
+                                    </Col>
+                                )
+                            })}                            
+                        </Row>}
                         <div className="d-flex flex-column align-items-center mt-5 mb-5">
                         <Pagination>
                             <Pagination.First />
