@@ -11,6 +11,8 @@ import Layout from '../../components/Layout'
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from '../../redux/actions/productDetail'
 import { increment, decrement } from '../../redux/actions/counter'
+import { Carousel } from "react-responsive-carousel";
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 const ProductDetail = () => {
 
@@ -64,6 +66,10 @@ const ProductDetail = () => {
     dispatch(decrement())
   }
 
+  const cart = (id) => {
+    router.push(`cart/${[id]}`)
+  }
+
   return (
     <>
       <style jsx>
@@ -107,7 +113,7 @@ const ProductDetail = () => {
                   <>
                     <Row className='mt-2'>
                       <Col className='mb-1' key='detail'>
-                        <Image src={data.image} width={140} height={134} alt='detail' />
+                        <Image className={`${styles.image}`} src={data.image} width={140} height={134} alt='detail' />
                       </Col>
                     </Row>
                   </>
@@ -115,7 +121,7 @@ const ProductDetail = () => {
               })}
             </Col>
             <Col xl={9} className='mt-5 mb-5'>
-              <Image src={productDetail.data?.product_images[0]?.image ? productDetail.data?.product_images[0].image : '/images/noimage.png'} width={990} height={805} alt='detail' />
+              <Image className={`${styles.image}`} src={productDetail.data?.product_images[0]?.image ? productDetail.data?.product_images[0].image : '/images/noimage.png'} width={990} height={805} alt='detail' />
             </Col>
           </Row>
           <Row>
@@ -149,7 +155,7 @@ const ProductDetail = () => {
                   <AiOutlineCheckCircle />
                 </Col>
                 <Col>
-                  <p>19 Sold / 40 In Stock</p>
+                  <p>Sold / {productDetail.data?.stock} In Stock</p>
                 </Col>
               </Row>
             </Col>
@@ -162,12 +168,12 @@ const ProductDetail = () => {
               <Col xl={12} className='text-center mt-5'>
                 <div className='d-flex'>
                   <div className={`${styles.counter} py-3 px-3`}>
-                    <FaPlus className='me-4' onClick={onInc} />
+                    <FaPlus className={`${styles.quantity} me-4`} onClick={onInc} />
                     {counter.num}
-                    <FaMinus className='ms-4' onClick={onDec} />
+                    <FaMinus className={`${styles.quantity} ms-4`} onClick={onDec} />
                   </div>
                   <div className='d-inline-block'>
-                    <button className={`${styles.button} py-3 px-5 ms-3 me-3`}>Add to cart</button>
+                    <button className={`${styles.button} py-3 px-5 ms-3 me-3`} onClick={() => cart(productDetail.data?.id)}>Add to cart</button>
                   </div>
                   <div className='d-inline-block'>
                     <button className={`${styles.buttonLike} py-3 px-3`}><FaHeart className='fs-5' /></button>
@@ -183,7 +189,7 @@ const ProductDetail = () => {
                 <p className='text-muted'>SKU: N/A <br />
                   Categories: Furniture, Interior, Chair  <br />
                   Tag:  Furniture, Chair, Scandinavian, Modern <br />
-                  Product ID: 274</p>
+                  Product ID: {productDetail.data?.id}</p>
               </Col>
             </Row>
             <Row>
@@ -252,7 +258,7 @@ const ProductDetail = () => {
               <>
                 <Row>
                   <Col xl={6}>
-                    <Image src={productDetail.data?.product_images[0]?.image ? productDetail.data?.product_images[0].image : '/images/noimage.png'} width={500} height={317} alt='detail' />
+                    <Image className={`${styles.image}`} src={productDetail.data?.product_images[0]?.image ? productDetail.data?.product_images[0].image : '/images/noimage.png'} width={500} height={317} alt='detail' />
                   </Col>
                   <Col xl={6}>
                     <p>{productDetail.data?.description}</p>
@@ -267,7 +273,7 @@ const ProductDetail = () => {
                     <>
                       <Row className='justify-content-center align-items-center'>
                         <Col xl={2}>
-                          <Image src={item.image} width={94} height={94} alt='detail' />
+                          <Image className={`${styles.image} rounded-circle`} src={item.image} width={94} height={94} alt='detail' />
                         </Col>
                         <Col xl={5} className='py-4'>
                           {item.comment}
@@ -287,7 +293,7 @@ const ProductDetail = () => {
                         <Col xl={5} className='py-4'>
                           <Row className='align-items-center'>
                             <Col xl={2}>
-                              <Image src={item.image} width={94} height={94} alt='detail' />
+                              <Image className={`${styles.image} rounded-circle`} src={item.image} width={94} height={94} alt='detail' />
                             </Col>
                             <Col xl={10} className='py-4'>
                               {item.comment}
@@ -351,21 +357,29 @@ const ProductDetail = () => {
             <Row className='mb-5'>
               <Col xl={12}>
                 <div className='d-flex justify-content-center'>
-                  {relatedProducts.map(item => {
-                    return (
-                      <>
-                        <div className='d-inline-block ms-5 me-5'>
-                          <Image src={item.image} width={360} height={450} alt='detail' />
-                          <div className='mb-2 mt-2'>
-                            {item.name}
+                  <Carousel autoPlay={true}
+                    emulateTouch={true}
+                    infiniteLoop={true}
+                    showThumbs={false}
+                    controlArrow={false}
+
+                    width="100%">
+                    {relatedProducts.map(item => {
+                      return (
+                        <>
+                          <div className='d-inline-block ms-5 me-5'>
+                            <Image className={`${styles.image}`} src={item.image} width={360} height={450} alt='detail' />
+                            <div className='mb-2 mt-2'>
+                              {item.name}
+                            </div>
+                            <div>
+                              {item.price}
+                            </div>
                           </div>
-                          <div>
-                            {item.price}
-                          </div>
-                        </div>
-                      </>
-                    )
-                  })}
+                        </>
+                      )
+                    })}
+                  </Carousel>
                 </div>
               </Col>
             </Row>

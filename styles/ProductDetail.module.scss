@@ -35,8 +35,14 @@ $theme-colors: #8E6737;
   height: 30px;
 }
 .text{
-  font-size: 12px;
+  font-size: 11px;
 }
 .cursor{
+  cursor: pointer;
+}
+.image{
+  object-fit: cover;
+}
+.quantity{
   cursor: pointer;
 }
