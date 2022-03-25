@@ -18,4 +18,5 @@ const rootReducers = combineReducers({
   size,
   buttons
 })
-export default rootReducer
+
+export default rootReducers
