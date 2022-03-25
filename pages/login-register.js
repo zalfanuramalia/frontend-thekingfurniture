@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { login } from '../redux/actions/auth'
 import { register } from '../redux/actions/auth'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { Alert } from 'react-bootstrap'
 
 const LoginRegister = () => {
 
@@ -57,9 +58,15 @@ const LoginRegister = () => {
           </div>
         </div>
         <Container>
+          <Row className='justify-content-center mt-5'>
+            <Col xl={6} className='d-flex flex-column'>
+              {auth.isErr && <Alert variant="danger" className='text-center'>{auth.errMsg[0]}<br />{auth.errMsg[1]}<br />{auth.errMsg[2]}</Alert>}
+              {auth.successMsg && <Alert variant='success' className='text-center'>{auth.successMsg}</Alert>}
+            </Col>
+          </Row>
           <Row>
             <Col xl={6}>
-              <Row className='mt-4 px-5'>
+              <Row className='mt-2 px-5'>
                 <Col xl={12} className='mb-5'>
                   <div>
                     <h3>Login</h3>
@@ -73,7 +80,7 @@ const LoginRegister = () => {
                   </Col>
                   <Col xl={12} className='mb-4'>
                     <div>
-                      <input type='text' name='passwordLogin' className='w-100 px-4 py-3' placeholder='Password'></input>
+                      <input type='password' name='passwordLogin' className='w-100 px-4 py-3' placeholder='Password'></input>
                     </div>
                   </Col>
                   <Col xl={12} className='mb-5'>
@@ -100,7 +107,7 @@ const LoginRegister = () => {
               </Row>
             </Col>
             <Col xl={6}>
-              <Row className='mt-4 px-5 mb-5'>
+              <Row className='mt-2 px-5 mb-5'>
                 <Col xl={12} className='mb-5'>
                   <div>
                     <h3>Create Account</h3>

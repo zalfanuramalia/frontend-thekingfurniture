@@ -1,15 +1,25 @@
 import { Col, Row, Container, Form } from 'react-bootstrap'
 import Head from 'next/head'
 import styles from '../styles/Auth.module.scss'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { changePassword } from '../redux/actions/auth'
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout'
+import { useEffect } from 'react'
+import { Alert } from 'react-bootstrap'
 
 const ForgotPassword = () => {
 
+  const { auth } = useSelector(state => state)
   const dispatch = useDispatch()
   const router = useRouter()
+
+  useEffect(() => {
+    if (auth.successMsg) {
+      router.push('/login-register')
+    }
+  }, [auth.successMsg])
+
   const onChangePassword = (e) => {
     e.preventDefault()
     const password = e.target.elements['password'].value
@@ -37,6 +47,12 @@ const ForgotPassword = () => {
           </div>
         </div>
         <Container>
+          <Row className='justify-content-center mt-5'>
+            <Col xl={6} className='d-flex flex-column'>
+              {auth.isErr && <Alert variant="danger" className='text-center'>{auth.errMsg[0]}<br />{auth.errMsg[1]}<br />{auth.errMsg[2]}</Alert>}
+              {auth.successMsg && <Alert variant='success' className='text-center'>{auth.successMsg}</Alert>}
+            </Col>
+          </Row>
           <Row>
             <Col xl={3}></Col>
             <Col xl={6}>
@@ -52,12 +68,12 @@ const ForgotPassword = () => {
                 <Form onSubmit={onChangePassword}>
                   <Col xl={12} className='mb-4'>
                     <div>
-                      <input type='text' name='password' className='w-100 px-4 py-3' placeholder='Your password'></input>
+                      <input type='password' name='password' className='w-100 px-4 py-3' placeholder='Your password'></input>
                     </div>
                   </Col>
                   <Col xl={12} className='mb-4'>
                     <div>
-                      <input type='text' name='confirmPassword' className='w-100 px-4 py-3' placeholder='Input your confirm password'></input>
+                      <input type='password' name='confirmPassword' className='w-100 px-4 py-3' placeholder='Input your confirm password'></input>
                     </div>
                   </Col>
                   <Col xl={12} className='mb-5'>

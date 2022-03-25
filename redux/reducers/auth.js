@@ -9,6 +9,7 @@ const auth = (state = initialState, action) => {
   switch (action.type) {
     case 'AUTH_LOGIN': {
       const newState = {
+        successMsg: action.payload.message,
         token: action.payload.token
       }
       window.localStorage.setItem('token', newState.token)

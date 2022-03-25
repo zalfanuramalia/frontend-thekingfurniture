@@ -17,7 +17,7 @@ export const login = (emailLogin, passwordLogin) => {
     } catch (e) {
       dispatch({
         type: 'AUTH_ERR',
-        payload: e.response
+        payload: e.response.data.message
       })
     }
   }
@@ -38,7 +38,7 @@ export const register = (emailRegis, passwordRegis, id_role) => {
     } catch (e) {
       dispatch({
         type: 'AUTH_ERR',
-        payload: e.response.data.result
+        payload: e.response.data.message
       })
     }
   }
@@ -49,7 +49,7 @@ export const forgot = (email) => {
     try {
       dispatch({ type: 'AUTH_CLEAR_STATE' })
       const dataForgot = { 'email': email }
-      const { data } = await http().post('auth/forgot-password?callback_url=http://localhost:3000', qs.stringify(dataForgot))
+      const { data } = await http().post('/auth/forgot-password?callbackUrl=http://localhost:3000 ', qs.stringify(dataForgot))
       dispatch({
         type: 'AUTH_FORGOT',
         payload: {
@@ -59,7 +59,7 @@ export const forgot = (email) => {
     } catch (e) {
       dispatch({
         type: 'AUTH_ERR',
-        payload: e.response.data.result
+        payload: e.response.data.message
       })
     }
   }
@@ -70,18 +70,21 @@ export const changePassword = (data) => {
     try {
       dispatch({ type: 'AUTH_CLEAR_STATE' })
       const params = new URLSearchParams()
-      params.append('otp', data.otp)
+      params.append('code', data.otp)
       params.append('password', data.password)
       params.append('confirmPassword', data.confirmPassword)
-      const { data } = await http().post('/auth/forgot-password', params)
+      const { data: dataForgot } = await http().post('/auth/forgot-password', params)
       dispatch({
-        type: 'AUTH_NEW_PASSWORD',
+        type: 'AUTH_CHANGE_PASSWORD',
         payload: {
-          message: data.message
+          message: dataForgot.message
         }
       })
     } catch (e) {
-
+      dispatch({
+        type: 'AUTH_ERR',
+        payload: e.response.data.message
+      })
     }
   }
 }

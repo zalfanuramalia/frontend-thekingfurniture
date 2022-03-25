@@ -1,20 +1,20 @@
 import { Col, Row, Container, Form } from 'react-bootstrap'
 import Head from 'next/head'
 import styles from '../styles/Auth.module.scss'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { forgot } from '../redux/actions/auth'
 import Layout from '../components/Layout'
+import { Alert } from 'react-bootstrap'
 
 const Forgotpassword = () => {
 
+  const { auth } = useSelector(state => state)
   const dispatch = useDispatch()
 
   const onForgot = (e) => {
     e.preventDefault()
     const email = e.target.elements['email'].value
-    const data = { email }
-    dispatch(forgot(data))
-    alert('Please check your email, we have sent you a link!')
+    dispatch(forgot(email))
   }
   return (
     <>
@@ -31,6 +31,12 @@ const Forgotpassword = () => {
           </div>
         </div>
         <Container>
+          <Row className='justify-content-center mt-5'>
+            <Col xl={6} className='d-flex flex-column'>
+              {auth.isErr && <Alert variant="danger" className='text-center'>{auth.errMsg}</Alert>}
+              {auth.successMsg && <Alert variant='success' className='text-center'>{auth.successMsg}</Alert>}
+            </Col>
+          </Row>
           <Row>
             <Col xl={3}></Col>
             <Col xl={6}>
