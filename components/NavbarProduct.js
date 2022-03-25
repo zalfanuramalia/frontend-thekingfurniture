@@ -33,19 +33,19 @@ const NavProductHomepage = () => {
               margin-bottom:5px;
           }
           a.actived{
-              color: #062C30;
+              color: #5C533D;
           }
 
           a:hover{
-            color:#05595B;
+            color:#5C533D;
           }
 
           a.active{
-              color : #05595B
+              color : #5C533D
           }
 
           hr{
-            border : 2px solid #05595B;
+            border : 2px solid #8E6737;
           }
 
           @media(max-width:500px) {
