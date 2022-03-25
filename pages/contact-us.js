@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import Layout from '../components/Layout'
 import BreadCrumb from '../components/BreadCrumb'
 
-const index = () => {
+const ContactUs = () => {
   return (
     <Layout>
       <Head>
@@ -76,4 +76,4 @@ const index = () => {
     </Layout >
   )
 }
-export default index
+export default ContactUs
