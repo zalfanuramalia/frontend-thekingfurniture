@@ -56,6 +56,10 @@ const ProductList = () => {
         }
     }
 
+    const productDetail = (id) => {
+        router.push(`product-list/${[id]}`)
+    }
+
     return (
         <>
             <Head>
@@ -206,7 +210,7 @@ const ProductList = () => {
                         <Row className="mt-5">
                             {product.data.map((datas, idx)=>{
                                 return (
-                                    <Col xl={4} key={datas.id} style={{cursor: 'pointer'}}>
+                                    <Col xl={4} key={datas.id} style={{cursor: 'pointer'}} onClick={()=>productDetail(datas.id)}>
                                         <Image src={datas.product_images[0]?.image ? datas.product_images[0]?.image : empty} width={293} height={400} alt='products' layout="fixed" />
                                         <div className="text-center">{datas.name}</div>
                                         <div className="text-center">$ {datas.price}</div>
