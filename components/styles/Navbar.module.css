@@ -60,6 +60,15 @@
   line-height: 32px;
 }
 
+.menu {
+  font-weight: 400;
+  font-size: 18px;
+  padding: 30px;
+  width: 130px;
+  height: 290px;
+  line-height: 57px;
+}
+
 @media all and (max-width: 992px) {
   .formSearch {
     width: 100% !important;
