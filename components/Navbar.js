@@ -3,9 +3,11 @@ import Image from 'next/image'
 import styles from './styles/Navbar.module.css'
 import { useRouter } from "next/router";
 import { BiSearchAlt2, BiHeart, BiCartAlt } from 'react-icons/bi';
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
   const route = useRouter();
+  const dispatch = useDispatch()
 
   const searchBtn = (e) => {
     e.preventDefault()
@@ -17,9 +19,15 @@ const Navbar = () => {
     }
   }
 
+  const logoutHandler = () => {
+    dispatch({type: 'TOGGLE_LOADING'})
+    dispatch({type: 'AUTH_LOGOUT'})
+    dispatch({type: 'TOGGLE_LOADING'})
+  }
+
   return (
     <>
-    <nav className="navbar navbar-expand-lg navbar-dark bg-color1 fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-color1">
       <div className={`container ${styles.layout}`}>
         <Link href='/'>
           <a>
@@ -153,7 +161,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link href='/'>
-                  <a className="">Logout</a>
+                  <a className=""><div onClick={logoutHandler}>Logout</div></a>
                   </Link>
                 </li>
               </ul>
