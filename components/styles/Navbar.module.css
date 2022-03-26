@@ -25,6 +25,23 @@
   color: rgb(0, 0, 0) !important;
 }
 
+.button {
+  background-color: wheat;
+  border: none;
+  font-size: 16px;
+  color: #062C30;
+}
+
+.button:hover {
+  background-color: #D0C8BA;
+  color: #062C30;
+}
+
+.button:focus {
+  background-color: #D0C8BA;
+  color: #062C30;
+}
+
 @media all and (max-width: 992px) {
   .formSearch {
     width: 100% !important;

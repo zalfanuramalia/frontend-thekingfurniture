@@ -9,7 +9,6 @@ import size from './size'
 import buttons from './buttons'
 import users from './users';
 import productSeller from './productSeller';
-import pages from './pages'
 import category from './category';
 
 const rootReducers = combineReducers({
@@ -23,7 +22,6 @@ const rootReducers = combineReducers({
     buttons,
     users,
     productSeller,
-    pages,
     category
 })
 
