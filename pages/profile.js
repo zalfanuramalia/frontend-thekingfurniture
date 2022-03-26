@@ -102,7 +102,7 @@ const ProfileSeller = () => {
                             <div className="mx-5 px-5 mt-4">
                                 <Card className={`${styles.cards} d-flex flex-row justify-content-between align-items-center `}>
                                     <div className="px-5 py-4">
-                                    <Form.Label className='align-items-center'><p>Gender :</p></Form.Label>
+                                        <Form.Label className='align-items-center'><p>Gender :</p></Form.Label>
                                         <Form.Select className='border-0' size="md" id="gender" name="gender" defaultValue={auth.userData.gender}>
                                             <option disabled value={''}></option>
                                             <option value={'male'}>male</option>

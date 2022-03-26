@@ -27,9 +27,11 @@ const MyProduct = () => {
 
   useEffect(()=>{
     dispatch(getProfile)
-    if (!pages.isLoading && auth.userData.id) {
-      getProductSeller(auth.userData?.id)
-      console.log(auth.userData?.id)
+    if (!pages.isLoading) {
+      if (auth.userData.id){
+        getProductSeller(auth.userData?.id)
+        console.log(auth.userData?.id)
+      }
     }
   },[dispatch])
 
