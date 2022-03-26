@@ -1,11 +1,6 @@
 import { Modal, Button } from "react-bootstrap";
 
 const ModalDelete = (props) => {
-
-  // const deleteHandler = (token, id) => {
-  //   dispatch(deleteProduct(token, id))
-  // }
-
     return (
       <Modal
         {...props}
@@ -19,7 +14,7 @@ const ModalDelete = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>This product has been deleted</h4>
+          <h4>This product has been Deleted</h4>
           {/* <p>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
@@ -27,7 +22,7 @@ const ModalDelete = (props) => {
           </p> */}
         </Modal.Body>
         <Modal.Footer>
-          <Button >Close</Button>
+          <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );

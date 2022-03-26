@@ -10,7 +10,6 @@ const NavbarProfile = () => {
   const router = useRouter()
   useEffect(() => {
     setActive(router.pathname)
-    console.log(router.pathname)
   }, [router.pathname])
   const file = [
     { link: '/profile', name: 'Profile' },
