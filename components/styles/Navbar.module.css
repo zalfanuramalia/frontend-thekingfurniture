@@ -51,6 +51,15 @@
   line-height: 57px;
 }
 
+.shop {
+  font-weight: 400;
+  font-size: 18px;
+  padding: 40px;
+  width: 190px;
+  height: 320px;
+  line-height: 32px;
+}
+
 @media all and (max-width: 992px) {
   .formSearch {
     width: 100% !important;

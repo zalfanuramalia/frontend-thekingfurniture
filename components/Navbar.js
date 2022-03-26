@@ -84,9 +84,9 @@ const Navbar = () => {
                   SHOP
                 </a>
               </Link>
-              <ul className="dropdown-menu bg-color1" aria-labelledby="navbarDropdown">
+              <ul className={`${styles.shop} dropdown-menu bg-color1`} aria-labelledby="navbarDropdown">
               <li>
-                <p className="text-light">Other Page</p>
+                <p className="text-light fw-bold">Other Page</p>
                   <Link href='/cart'>
                   <a className="">Shopping Cart</a>
                   </Link>
