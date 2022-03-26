@@ -129,7 +129,7 @@ const Navbar = () => {
               <Link href='/favorite'>
               <button className="btn position-relative ms-lg-1">
                 <BiHeart className="fs-2 text-white"/>
-                <div className={`bg-white position-absolute text-white rounded-circle ${styles.notif}`}>10</div>
+                <div className={`bg-white position-absolute text-white rounded-circle ${styles.notif}`}>0</div>
               </button>
               </Link>
             </li>
@@ -137,7 +137,7 @@ const Navbar = () => {
             <Link href='/cart'>
               <button className="btn position-relative mx-lg-1">
                 <BiCartAlt className="fs-2 text-white"/>
-                <div className={`bg-white position-absolute text-white rounded-circle ${styles.notif}`}>10</div>
+                <div className={`bg-white position-absolute text-white rounded-circle ${styles.notif}`}>0</div>
               </button>
               </Link>
              
@@ -149,7 +149,7 @@ const Navbar = () => {
                 </a>
               </Link>
               {token !== null && 
-              <ul className="dropdown-menu bg-color1" aria-labelledby="navbarDropdown">
+              <ul className={`${styles.menu} dropdown-menu bg-color1`} aria-labelledby="navbarDropdown">
                 <li>
                   <Link href='/profile'>
                   <a className="">Profile</a>
@@ -172,7 +172,7 @@ const Navbar = () => {
                 </li>
               </ul>}
               {token === null && 
-              <ul className="dropdown-menu bg-color1" aria-labelledby="navbarDropdown">
+              <ul className={`${styles.menu} dropdown-menu bg-color1`} aria-labelledby="navbarDropdown">
                 <li>
                   <Link href='/login-register'>
                   <a className="">Login</a>
