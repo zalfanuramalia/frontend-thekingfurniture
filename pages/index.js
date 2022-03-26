@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { Row,Col, Container,Nav } from 'react-bootstrap'
 import homepage from '../styles/homepage.module.scss'
 import KingButton from '../components/KingButton'
-import NavbarProduct from '../components/NavbarProduct'
 import { Card } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +19,7 @@ export default function Home() {
 
   const {product} = useSelector(state=>state)
   const dispatch = useDispatch()
+  const router = useRouter()
   const [active, setActive] = useState('newProduct')
 
   const menu = [
@@ -28,6 +28,10 @@ export default function Home() {
     {onclick: 'sellingOffer', name: 'Selling Offer'},
     
   ]
+
+  const productDetail = (id) => {
+    router.push(`product-list/${[id]}`)
+  }
 
   useEffect(()=> {
     dispatch(getProduct)
@@ -127,7 +131,6 @@ export default function Home() {
           <> 
           <section>
               <Container>
-                {/* <NavbarProduct/> */}
                   <Row className='mt-5 mb-5 text-center'>
                   {product.data.map((datas, idx)=>{
                                 return (
