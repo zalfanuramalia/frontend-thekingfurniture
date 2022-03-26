@@ -1,92 +1,78 @@
 const initialState = {
-  token: null,
   userData: {},
-  isLoading: false,
-  isError: false,
-  errorMsg: ''
+  token: null,
+  isErr: false,
+  errMsg: '',
+  successMsg: null,
+  updateProfile: false
 }
 
 const auth = (state = initialState, action) => {
   switch (action.type) {
-    case 'AUTH_REGISTER_PENDING': {
-      state.isLoading = true
-      return { ...state }
+    case 'AUTH_LOGIN': {
+      const newState = {
+        successMsg: action.payload.message,
+        token: action.payload.token
+      }
+      window.localStorage.setItem('token', newState.token)
+      return {
+        ...state,
+        ...newState
+      }
     }
-    case 'AUTH_REGISTER_FULFILLED': {
-      const { data } = action.payload
-      state.isLoading = false
-      state.message = data.message
-      state.isError = false
-      return { state }
+    case 'AUTH_REGISTER': {
+      const newState = {
+        successMsg: action.payload.message
+      }
+      return {
+        ...state,
+        ...newState
+      }
     }
-    case 'AUTH_REGISTER_REJECTED': {
-      const { data } = action.payload.response
-      state.isLoading = false
-      state.isError = true
-      state.errMessage = data.message
+    case 'AUTH_FORGOT': {
+      const newState = {
+        successMsg: action.payload.message
+      }
+      return {
+        ...state,
+        ...newState
+      }
     }
-    case 'AUTH_LOGIN_PENDING': {
-      state.isError = false;
-      state.isLoading = true;
-      state.token = null;
-      state.errMessage = null;
-      return { ...state }
+    case 'AUTH_CHANGE_PASSWORD': {
+      const newState = {
+        successMsg: action.payload.message
+      }
+      return {
+        ...state,
+        ...newState
+      }
     }
-    case 'AUTH_LOGIN_FULFILLED': {
-      const { data } = action.payload
-      state.isError = false;
-      state.isLoading = false;
-      state.errMessage = null;
-      state.token = data.results.token
-      window.localStorage.setItem('token', data.results.token);
-      return { ...state }
+    case 'GET_PROFILE': {
+      const newState = {
+        successMsg: action.payload.message
+      }
+      const newsState = {
+        userData: action.payload
+      }
+      return {
+        ...state,
+        ...newState,
+        ...newsState
+      }
     }
-    case 'AUTH_LOGIN_REJECTED': {
-      const { message } = action.payload.response.data;
-      console.log(message)
-      state.isLoading = false;
-      state.token = null;
-      state.isError = true;
-      return { ...state }
+    case 'UPDATE_PROFILE': {
+      state.updateProfile = true
+      return {...state}
     }
-    case 'AUTH_FORGOT_PASSWORD_PENDING': {
-      state.isLoading = true
-      return state
+    case 'AUTH_ERR': {
+      return {
+        ...state,
+        isErr: true,
+        errMsg: action.payload
+      }
     }
-    case 'AUTH_FORGOT_PASSWORD_FULFILLED': {
-      const { data } = action.payload
-      state.isLoading = false
-      state.isError = false
-      state.errorMsg = data.message
-      return { ...state }
-    }
-    case 'AUTH_FORGOT_PASSWORD_REJECTED': {
-      const { message } = action.payload.response.data
-      console.log(message)
-      state.isLoading = false
-      state.isError = true
-      state.errorMsg = message
-      return { ...state }
-    }
-    case 'AUTH_CHANGE_PASSWORD_PENDING': {
-      state.isLoading = true
-      return state
-    }
-    case 'AUTH_CHANGE_PASSWORD_FULFILLED': {
-      const { data } = action.payload
-      console.log(data.message)
-      state.isLoading = false
-      state.isError = false
-      state.errorMsg = data.message
-      return { ...state }
-    }
-    case 'AUTH_CHANGE_PASSWORD_REJECTED': {
-      const { message } = action.payload.response.data
-      console.log(message)
-      state.isLoading = false
-      state.isError = true
-      state.errorMsg = message
-      return { ...state }
+    case 'AUTH_CLEAR_STATE': {
+      return initialState
     }
     default: {
       return { ...state }
@@ -94,4 +80,4 @@ const auth = (state = initialState, action) => {
   }
 }
 
-export default auth;
+export default auth

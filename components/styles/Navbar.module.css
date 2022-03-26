@@ -13,6 +13,8 @@
 
 .formSearch {
   display: none;
+  outline: none;
+  border: none;
 }
 
 .notif {
