@@ -12,7 +12,7 @@ const Navbar = () => {
   const route = useRouter();
   const dispatch = useDispatch()
   const {auth} = useSelector(state=>state)
-  // const token = window.localStorage.getItem('token')
+  const token = window.localStorage.getItem('token')
 
   const searchBtn = (e) => {
     e.preventDefault()
@@ -149,6 +149,7 @@ const Navbar = () => {
                 <Image src='/images/menu.png' layout='intrinsic' alt='menu' width={25} height={25} />
                 </a>
               </Link>
+              {token !== null && 
               <ul className="dropdown-menu bg-color1" aria-labelledby="navbarDropdown">
                 <li>
                   <Link href='/profile'>
@@ -170,13 +171,31 @@ const Navbar = () => {
                   <a className=""><div onClick={logoutHandler}>Logout</div></a>
                   </Link>
                 </li>
-              </ul>
-            </li> 
-            {/* {token === null &&
-            <div className="px-3 ms-3">
-              <Link href='/login-register'><a><Button className={`${styles.button} px-4 mx-2`}>Login</Button></a></Link>
-              <Link href='/login-register'><a><Button className={`${styles.button} mx-2`}>Register</Button></a></Link>              
-            </div>} */}
+              </ul>}
+              {token === null && 
+              <ul className="dropdown-menu bg-color1" aria-labelledby="navbarDropdown">
+                <li>
+                  <Link href='/login-register'>
+                  <a className="">Login</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/login-register'>
+                  <a className="">Register</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/chat'>
+                  <a className="">Chat</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/notification'>
+                  <a className="">Notification</a>
+                  </Link>
+                </li>
+              </ul>}
+            </li>
           </ul>
         </div>
       </div>
