@@ -11,6 +11,7 @@ import users from './users';
 import productSeller from './productSeller';
 import cart from './cart'
 import favorite from './favorite'
+import category from './category';
 
 const rootReducers = combineReducers({
     auth,
@@ -25,6 +26,7 @@ const rootReducers = combineReducers({
     productSeller,
     cart,
     favorite,
+    category
 })
 
 export default rootReducers

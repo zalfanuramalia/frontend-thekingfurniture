@@ -1,14 +1,64 @@
 import Head from 'next/head'
 import Input from '../components/Input'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, Alert, Spinner } from 'react-bootstrap'
 import Layout from '../components/Layout'
 import seller from '../public/images/seller.png'
 import empty from '../public/images/empty-input-image.png'
 import Image from 'next/image'
 import NavbarProfile from '../components/NavbarProfile'
-import styles from "../styles/profile-seller.module.scss"
+import styles from "../styles/profile.module.scss"
+import { useDispatch, useSelector } from 'react-redux'
+import { createProductSeller } from '../redux/actions/productSeller'
+import React, { useEffect, useRef, useState } from 'react'
+import { getCategory } from '../redux/actions/category'
+import { HiOutlinePencil } from 'react-icons/hi'
+import Modals from "../components/ModalAdd"
 
 const SellingProduct = () => {
+  const {productSeller, auth, category} = useSelector(state=>state)
+  const dispatch = useDispatch()
+  const hiddenFileInput = useRef(null)
+  const [modalShow, setModalShow] = React.useState(false);
+  const [data, setData] = useState({})
+
+  useEffect(() => {
+    dispatch(getCategory);
+  }, [])
+
+  const fileInputHandler = (e) => {
+    const reader = new FileReader();
+    const image = e.target.files[0];
+
+    const productImage = document.querySelector('#product-image');
+    reader.readAsDataURL(image);
+
+    reader.onload = (e) => {
+      productImage.src = e.target.result;
+      productImage.className += ' rounded-circle'
+    };
+    setData({
+      image: e.target.files[0]
+    });
+  };
+  
+  const uploadFile = (e) => {
+    e.preventDefault()
+    hiddenFileInput.current.click()
+  }
+  
+
+  const addProductHandler = (e) => {
+    e.preventDefault()
+    const name  = e.target.elements["name"].value;
+    const description  = e.target.elements["description"].value;
+    const stock  = e.target.elements["stock"].value;
+    const price  = e.target.elements["price"].value;
+    const condition  = e.target.elements["condition"].value;
+    const id_seller = auth.userData.id;
+    const id_category = document.querySelector('.category .form-check-input:checked').value;
+    const data = {name, description, stock, price, condition, id_seller, id_category}
+    dispatch(createProductSeller(data))
+  }
   return (
     <Layout>
         <Head>
@@ -24,18 +74,25 @@ const SellingProduct = () => {
             </div>
             <div className="d-flex justify-content-center align-items-center px-5 mx-5">                    
                 <NavbarProfile />    
-            </div>         
+            </div> 
+        <Form  onSubmit={addProductHandler}> 
+        {auth.errMsg &&
+          <div className="alert alert-warning fade show" role="alert" aria-label="Close">
+            <strong>Error</strong>
+        </div>
+        }
+        {productSeller.data  &&
+          <Modals show={modalShow} onHide={() => setModalShow(false)} />
+        }
         <Container className='mb-5'>
         <Row>
-          <Col xs={12} md={3}>
-          </Col>
+          <Col xs={12} md={3}></Col>
           <Col xs={12} md={6}>
             <h4>Inventory</h4>
             <Input
               type="text"
-              id="goods"
-              name="goods"
-              aria-describedby="goods"
+              name="name"
+              aria-describedby="name"
               className='me-5 py-3 mt-5'
               placeholder='Name of goods *'
             />
@@ -65,20 +122,35 @@ const SellingProduct = () => {
               className='me-5 py-3 mt-5'
               placeholder='Unit Stock *'
             />
+            <Row className='mt-5 g-1'>
+              <div className='mb-3'>Categories</div>
+              {category.data.map((data, index) => {
+                return <Col key={data.name} xs={6} lg={4}>
+                  <Form.Check
+                  inline
+                  label={data.name}
+                  name="id_category"
+                  className='category'
+                  value={data.id}
+                />
+                </Col>
+              })}
+            </Row>
             <Row className='mt-3'>
               <div className='my-4'>Stock Condition</div>
               <Col>
                 <Form.Check
                   inline
                   label="New Product"
-                  name="group1"
+                  name="condition"
+                  value='New'
                 />
               </Col>
               <Col>
                 <Form.Check
                   inline
                   label="Second Product"
-                  name="group1"
+                  name='Second'
                 />
               </Col>
             </Row>
@@ -97,18 +169,26 @@ const SellingProduct = () => {
               <Col xs={12} md={4}>
                 <div height={30} className="my-3">
                   <Image
+                    id='product-image'
+                    name='product-image'
                     src={empty}
                     width="500px"
                     height="500px"
                     className="img-thumbnail"
                     alt="..." />
+                    
                 </div>
-              </Col>
-              <Col xs={12} md={4}>
-
+                <Button block variant='pallet-3 my-1 radius save-1' onClick={(e) =>uploadFile(e)}> Choose from Gallery </Button>
+                    <input type="file"
+                      ref={hiddenFileInput}
+                      className='d-none'
+                      name='image'
+                      accept='image'
+                      onChange={(e) => fileInputHandler(e)}
+                    />
               </Col>
             </Row>
-            <Button className='mt-4 px-4' variant="color2" size="lg" active>
+            <Button onClick={()=>setModalShow(true)} type='submit' className='mt-4 px-4' variant="color2" size="lg" active>
               Sell Product
             </Button>{' '}
           </Col>
@@ -117,6 +197,7 @@ const SellingProduct = () => {
           </Col>
         </Row>
       </Container>
+      </Form>   
       </div>
     </Layout >
   )

@@ -1,6 +1,6 @@
 import { Modal, Button } from "react-bootstrap";
 
-const ModalDelete = (props) => {
+const ModalAdd = (props) => {
     return (
       <Modal
         {...props}
@@ -10,11 +10,11 @@ const ModalDelete = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Delete Confirmation
+            Add Data Confirmation
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>This product has been Deleted</h4>
+          <h4>This product has been Posted</h4>
           {/* <p>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
@@ -28,4 +28,4 @@ const ModalDelete = (props) => {
     );
   }
 
-  export default ModalDelete
+  export default ModalAdd
