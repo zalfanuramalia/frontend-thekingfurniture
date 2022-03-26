@@ -55,7 +55,7 @@ const Navbar = () => {
                   PAGES
                 </a>
               </Link>
-              <ul className="dropdown-menu bg-color1" aria-labelledby="navbarDropdown">
+              <ul className={`${styles.pages} dropdown-menu bg-color1`} aria-labelledby="navbarDropdown">
                 <li>
                   <Link href='/about-us'>
                   <a className="">About US</a>
@@ -142,7 +142,6 @@ const Navbar = () => {
               </Link>
              
             </li>
-            {/* {token !==  null && */}
             <li className="nav-item dropdown ms-lg-3">
               <Link href='/'>
                 <a className="nav-link fw-bold fs-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
