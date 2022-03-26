@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <>
-    <nav className="navbar navbar-expand-lg navbar-dark bg-color1 fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-color1">
       <div className={`container ${styles.layout}`}>
         <Link href='/'>
           <a>

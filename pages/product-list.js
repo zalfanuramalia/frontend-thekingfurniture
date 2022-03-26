@@ -18,11 +18,11 @@ import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import empty from "../public/images/empty-input-image.png"
 import SizeCard from "../components/SizeCard";
+import NumberFormat from "react-number-format";
 
 const ProductList = () => {
     const {color, product, size} = useSelector(state=>state)
-    const [value, setValue] =  React.useState([2,1000]);
-
+    const [value, setValue] =  React.useState([0,1000000]);
     const dispatch = useDispatch()
     const router = useRouter()
     const [sizeValue, setSizeValue] = useState([])
@@ -134,13 +134,13 @@ const ProductList = () => {
                             width: "100%"
                         }}>
                             <h3 className="mt-5">Price</h3>
-                            <Typography className="mt-4" id="range-slider" gutterBottom>Price ${value[0]} - ${value[1]}</Typography>
+                            <Typography className="mt-4" id="range-slider" gutterBottom>Price <NumberFormat value={value[0]} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp. '} ></NumberFormat> - <NumberFormat value={value[1]} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp. '} ></NumberFormat></Typography>
                             <Slider
                                 value={value}
                                 onChange={rangeSelector}
                                 valueLabelDisplay="auto"
-                                min={1}
-                                max={1000}
+                                min={0}
+                                max={1000000}
                                 aria-labelledby="range-slider"
                             />
                         </div>
@@ -227,7 +227,7 @@ const ProductList = () => {
                                     <Col xl={4} key={datas.id} style={{cursor: 'pointer'}} onClick={()=>productDetail(datas.id)}>
                                         <Image src={datas.product_images[0]?.image ? datas.product_images[0]?.image : empty} width={293} height={400} alt='products' layout="fixed" />
                                         <div className="text-center">{datas.name}</div>
-                                        <div className="text-center">$ {datas.price}</div>
+                                        <div className="text-center"><NumberFormat value={datas?.price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp. '} ></NumberFormat></div>
                                     </Col>
                                 )
                             })}                            

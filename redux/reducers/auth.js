@@ -1,8 +1,10 @@
 const initialState = {
+  userData: {},
   token: null,
   isErr: false,
   errMsg: '',
-  successMsg: null
+  successMsg: null,
+  updateProfile: false
 }
 
 const auth = (state = initialState, action) => {
@@ -44,6 +46,23 @@ const auth = (state = initialState, action) => {
         ...state,
         ...newState
       }
+    }
+    case 'GET_PROFILE': {
+      const newState = {
+        successMsg: action.payload.message
+      }
+      const newsState = {
+        userData: action.payload
+      }
+      return {
+        ...state,
+        ...newState,
+        ...newsState
+      }
+    }
+    case 'UPDATE_PROFILE': {
+      state.updateProfile = true
+      return {...state}
     }
     case 'AUTH_ERR': {
       return {

@@ -1,15 +1,15 @@
-const dataProduct = {
+const dataProductSeller = {
     data: []
 }
 
-const product = (state = dataProduct, action) => {
+const productSeller = (state = dataProductSeller, action) => {
     switch (action.type) {        
-        case 'GET_PRODUCT': {
+        case 'GET_PRODUCT_SELLER': {
             const data = action.payload
             state.data = data
             return {...state }
         }
-        case 'DELETE_PRODUCT': {
+        case 'DELETE_PRODUCT_SELLER': {
             const data = action.payload
             state.data = data
             return {...state }
@@ -20,4 +20,4 @@ const product = (state = dataProduct, action) => {
     }
 }
 
-export default product
+export default productSeller
