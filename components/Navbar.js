@@ -3,11 +3,16 @@ import Image from 'next/image'
 import styles from './styles/Navbar.module.css'
 import { useRouter } from "next/router";
 import { BiSearchAlt2, BiHeart, BiCartAlt } from 'react-icons/bi';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Button from "../components/Button"
+import { useEffect } from "react";
+import { getProfile } from "../redux/actions/auth";
 
 const Navbar = () => {
   const route = useRouter();
   const dispatch = useDispatch()
+  const {auth} = useSelector(state=>state)
+  const token = window.localStorage.getItem('token')
 
   const searchBtn = (e) => {
     e.preventDefault()
@@ -137,6 +142,7 @@ const Navbar = () => {
               </Link>
              
             </li>
+            {token !==  null &&
             <li className="nav-item dropdown ms-lg-3">
               <Link href='/'>
                 <a className="nav-link fw-bold fs-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -165,7 +171,12 @@ const Navbar = () => {
                   </Link>
                 </li>
               </ul>
-            </li>
+            </li> }
+            {token === null &&
+            <div className="px-3 ms-3">
+              <Link href='/login-register'><a><Button className={`${styles.button} px-4 mx-2`}>Login</Button></a></Link>
+              <Link href='/login-register'><a><Button className={`${styles.button} mx-2`}>Register</Button></a></Link>              
+            </div>}
           </ul>
         </div>
       </div>

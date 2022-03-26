@@ -22,7 +22,6 @@ const rootReducers = combineReducers({
     buttons,
     users,
     productSeller,
-    pages,
     category
 })
 
