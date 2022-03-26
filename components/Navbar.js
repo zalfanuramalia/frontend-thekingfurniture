@@ -12,6 +12,7 @@ const Navbar = () => {
   const route = useRouter();
   const dispatch = useDispatch()
   const {auth} = useSelector(state=>state)
+  const token = window.localStorage.getItem('token')
 
   const searchBtn = (e) => {
     e.preventDefault()
@@ -28,23 +29,6 @@ const Navbar = () => {
     dispatch({type: 'AUTH_LOGOUT'})
     dispatch({type: 'TOGGLE_LOADING'})
   }
-
-  useEffect(()=>{
-    const token = window.localStorage.getItem('token')
-    if(token){
-      dispatch({
-        type: 'AUTH_LOGIN',
-        payload: {
-          data: {
-            results: {
-              token
-            }
-          }
-        }
-      })
-    dispatch(getProfile)    
-    }
-  },[dispatch,auth.token])
 
   return (
     <>
@@ -158,7 +142,7 @@ const Navbar = () => {
               </Link>
              
             </li>
-            {auth.token !==  null &&
+            {token !==  null &&
             <li className="nav-item dropdown ms-lg-3">
               <Link href='/'>
                 <a className="nav-link fw-bold fs-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -188,7 +172,7 @@ const Navbar = () => {
                 </li>
               </ul>
             </li> }
-            {auth.token === null &&
+            {token === null &&
             <div className="px-3 ms-3">
               <Link href='/login-register'><a><Button className={`${styles.button} px-4 mx-2`}>Login</Button></a></Link>
               <Link href='/login-register'><a><Button className={`${styles.button} mx-2`}>Register</Button></a></Link>              
