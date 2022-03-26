@@ -7,6 +7,7 @@ import buttons from './buttons'
 import users from './users';
 import productSeller from './productSeller';
 import pages from './pages'
+import category from './category';
 
 const rootReducer = combineReducers({
     auth,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     buttons,
     users,
     productSeller,
-    pages
+    pages,
+    category
 })
 
 export default rootReducer

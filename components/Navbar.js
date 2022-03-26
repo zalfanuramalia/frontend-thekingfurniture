@@ -3,9 +3,11 @@ import Image from 'next/image'
 import styles from './styles/Navbar.module.css'
 import { useRouter } from "next/router";
 import { BiSearchAlt2, BiHeart, BiCartAlt } from 'react-icons/bi';
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
   const route = useRouter();
+  const dispatch = useDispatch()
 
   const searchBtn = (e) => {
     e.preventDefault()
@@ -15,6 +17,12 @@ const Navbar = () => {
     } else {
     input.style.display = 'block'
     }
+  }
+
+  const logoutHandler = () => {
+    dispatch({type: 'TOGGLE_LOADING'})
+    dispatch({type: 'AUTH_LOGOUT'})
+    dispatch({type: 'TOGGLE_LOADING'})
   }
 
   return (
@@ -153,7 +161,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link href='/'>
-                  <a className="">Logout</a>
+                  <a className=""><div onClick={logoutHandler}>Logout</div></a>
                   </Link>
                 </li>
               </ul>

@@ -3,7 +3,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import Layout from "../components/Layout"
 import NavbarProfile from "../components/NavbarProfile";
 import { BsCheck } from 'react-icons/bs';
-import styles from '../styles/profile-seller.module.scss';
+import styles from '../styles/profile.module.scss';
 import Head from "next/head";
 
 const MyOrder = () => {
