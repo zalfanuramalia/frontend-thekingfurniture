@@ -208,7 +208,7 @@ export default function Home() {
       </Row>
           </section>
           <section>
-          <Row className='py-5 bg-color4 align-items-center justify-content-center'>
+          <Row className='py-2 bg-color4 align-items-center justify-content-center mb-4'>
           <Col xs={12} md={6}>
             <Card className="text-center bg-color4 border-0">
               <Container>
