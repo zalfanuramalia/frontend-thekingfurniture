@@ -97,8 +97,8 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href='/login-register'>
-                  <a className="">My Account</a>
+                  <Link href='/product-list'>
+                  <a className="">Product</a>
                   </Link>
                 </li>
                 <li>
