@@ -23,3 +23,18 @@ iframe {
   height: 100%;
   width: 100%;
 }
+
+.variation {
+  font-size: 1.5rem;
+}
+
+.variation a {
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  color: black;
+}
+
+.variation a.active {
+  color: #DED0C1;
+  border-color: #70553B;
+}
