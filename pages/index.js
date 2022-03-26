@@ -157,7 +157,7 @@ export default function Home() {
                   </Row>
                   <div className='mt-5 mb-5 d-flex align-items-center justify-content-center'>
                       <div className={homepage.lineHorizontal}></div>
-                      <Link href="#"><a className="ms-3 fs-6 text-color1 text-decoration-none fw-bold">VIEW MORE PRODUCTS</a></Link>
+                      <Link href="/product-list"><a className="ms-3 fs-6 text-color1 text-decoration-none fw-bold">VIEW MORE PRODUCTS</a></Link>
                   </div>
               </Container>
           </section>
