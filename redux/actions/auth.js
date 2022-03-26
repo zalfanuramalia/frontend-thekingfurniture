@@ -89,6 +89,54 @@ export const changePassword = (data) => {
   }
 }
 
+export const getProfile = async (dispatch) => {
+    try {
+        dispatch({type: 'TOGGLE_LOADING'})
+        const token = window.localStorage.getItem('token')
+        const {data} = await http(token).get('/profile')
+        dispatch({type: 'GET_PROFILE', payload: data.result})
+        dispatch({type: 'TOGGLE_LOADING'})
+    } catch (e){
+        console.log(e)
+    }
+}
+
+export const updateProfile = (data) => {
+  return async (dispatch) => {
+    try {
+      dispatch({type: 'TOGGLE_LOADING'})
+      const token = window.localStorage.getItem('token')
+      const params = new FormData()
+      if(data.name){        
+        params.append('name', data.name)
+      }
+      if(data.email){        
+        params.append('email', data.email)
+      }
+      if(data.gender){        
+        params.append('gender', data.gender)
+      }
+      if(data.store_description){        
+        params.append('store_description', data.store_description)
+      }
+      if(data.store_name){        
+        params.append('store_name', data.store_name)
+      }
+      if(data.picture){        
+        params.append('picture', data.picture)
+      }        
+      const { data: datas } = await http(token, true).patch('/profile', params)
+      dispatch({
+        type: 'UPDATE_PROFILE',
+        payload: datas.result
+      })
+      dispatch({type: 'TOGGLE_LOADING'})
+    } catch (e) {
+        console.log(e)
+    }
+  }
+}
+
 // export const forgot = (email) => {
 //   const dataForgot = { 'email': email }
 

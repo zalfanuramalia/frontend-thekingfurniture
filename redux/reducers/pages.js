@@ -7,7 +7,6 @@ const pages = (state = initialState, action) => {
         case 'TOGGLE_LOADING': {
             let {isLoading} = state
             isLoading = !isLoading
-            state.isLoading = true
             return {...state }
         }
         default: {
