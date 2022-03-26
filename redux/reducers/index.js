@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux'
 import auth from "./auth";
+import productDetail from "./productDetail";
+import counter from "./counter";
+import pages from "./pages";
 import product from './productList'
 import color from './color'
 import size from './size'
@@ -9,8 +12,11 @@ import productSeller from './productSeller';
 import pages from './pages'
 import category from './category';
 
-const rootReducer = combineReducers({
-    auth,
+const rootReducers = combineReducers({
+  auth,
+  productDetail,
+  counter,
+  pages,
     product,
     color,
     size,
@@ -21,4 +27,4 @@ const rootReducer = combineReducers({
     category
 })
 
-export default rootReducer
+export default rootReducers
