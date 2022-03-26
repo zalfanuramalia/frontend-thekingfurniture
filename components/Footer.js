@@ -53,7 +53,9 @@ const Footer = ({fullFooter}) => {
         <Row className='mt-5'>
           <Col xs={12} lg={4}>
             <Link href='/'>
+              <a>
             <Image layout='intrinsic' alt='logo' src='/images/logo.png' width={80} height={80} />
+            </a>
             </Link>
             <p className='mt-4'>The King Furniture is a shop that sells a variety of your home furniture needs.</p>
             <div className='d-flex flex-row'>
