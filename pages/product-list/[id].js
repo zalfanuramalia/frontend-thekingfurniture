@@ -11,13 +11,17 @@ import Layout from '../../components/Layout'
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from '../../redux/actions/productDetail'
 import { increment, decrement } from '../../redux/actions/counter'
+import { addToCart } from '../../redux/actions/cart'
+import { checkFavorite, addToFavorite, removeFavorite } from '../../redux/actions/favorite'
 import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 const ProductDetail = () => {
 
   const { productDetail } = useSelector(state => state)
-  const { pages } = useSelector(state => state)
+  const { pages, favorite } = useSelector(state => state)
+  const [liked, setLiked] = useState(false)
+  const [userToken, setUserToken] = useState()
   const router = useRouter()
 
   // const product = [
@@ -53,7 +57,10 @@ const ProductDetail = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    const token = window.localStorage.getItem('token')
+    setUserToken(token)
     getProductDetail(dispatch, router.query.id)
+    checkFavorite(dispatch, router.query.id)
   }, [router.query.id])
 
 
@@ -69,7 +76,29 @@ const ProductDetail = () => {
   const cart = (id) => {
     router.push(`cart/${[id]}`)
   }
+  const addCart = (e) => {
+    e.preventDefault()
+        const data = {
+        id_product: router.query.id,
+        qty: counter.num > 1 ? counter.num : 1,
+        recipient_name: 'Unset',
+        address: 'Unset',
+    }
+    console.log(data)
+    addToCart(dispatch, userToken, data)
+  }
 
+  const likeProduct = async() => {
+    setLiked(!liked)
+      if (!favorite.data?.id) {
+        const data = {id_product: router.query.id}
+        addToFavorite(dispatch, data)
+      }else{
+          removeFavorite(dispatch, favorite.data.id)
+          await checkFavorite(dispatch, router.query.id)
+      }
+      
+  }
   return (
     <>
       <style jsx>
@@ -173,13 +202,13 @@ const ProductDetail = () => {
                     <FaMinus className={`${styles.quantity} ms-4`} onClick={onDec} />
                   </div>
                   <div className='d-inline-block'>
-                    <button className={`${styles.button} py-3 px-5 ms-3 me-3`} onClick={() => cart(productDetail.data?.id)}>Add to cart</button>
+                    <button className={`${styles.button} py-3 px-5 ms-3 me-3 text-white`} onClick={addCart}>Add to cart</button>
                   </div>
                   <div className='d-inline-block'>
-                    <button className={`${styles.buttonLike} py-3 px-3`}><FaHeart className='fs-5' /></button>
+                    <button onClick={likeProduct} className={`${styles.buttonLike} py-3 px-3 ${favorite.data?.id || liked? 'text-danger': 'text-white'}`}><FaHeart className='fs-5' /></button>
                   </div>
                   <div className='d-inline-block'>
-                    <button className={`${styles.buttonWish} py-3 ms-3`}>Add to wishlist</button>
+                    <button className={`${styles.buttonWish} py-3 ms-3 text-white`}>Add to wishlist</button>
                   </div>
                 </div>
               </Col>
