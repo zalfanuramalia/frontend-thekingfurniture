@@ -12,7 +12,7 @@ const Navbar = () => {
   const route = useRouter();
   const dispatch = useDispatch()
   const {auth} = useSelector(state=>state)
-  const token = window.localStorage.getItem('token')
+  // const token = window.localStorage.getItem('token')
 
   const searchBtn = (e) => {
     e.preventDefault()
@@ -142,7 +142,7 @@ const Navbar = () => {
               </Link>
              
             </li>
-            {token !==  null &&
+            {/* {token !==  null && */}
             <li className="nav-item dropdown ms-lg-3">
               <Link href='/'>
                 <a className="nav-link fw-bold fs-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -171,12 +171,12 @@ const Navbar = () => {
                   </Link>
                 </li>
               </ul>
-            </li> }
-            {token === null &&
+            </li> 
+            {/* {token === null &&
             <div className="px-3 ms-3">
               <Link href='/login-register'><a><Button className={`${styles.button} px-4 mx-2`}>Login</Button></a></Link>
               <Link href='/login-register'><a><Button className={`${styles.button} mx-2`}>Register</Button></a></Link>              
-            </div>}
+            </div>} */}
           </ul>
         </div>
       </div>
