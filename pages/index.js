@@ -8,9 +8,21 @@ import homepage from '../styles/homepage.module.scss'
 import KingButton from '../components/KingButton'
 import NavbarProduct from '../components/NavbarProduct'
 import { Card } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { getProduct } from "../redux/actions/productList"
 
 
 export default function Home() {
+
+  const {product} = useSelector(state=>state)
+  const dispatch = useDispatch()
+
+  useEffect(()=> {
+    dispatch(getProduct)
+  }, [dispatch])
+
   return (
     <Layout>
     <div className={styles.container}>
@@ -67,7 +79,19 @@ export default function Home() {
               <Container>
                 <NavbarProduct/>
                   <Row className='mt-5 mb-5 text-center'>
-                    <Col md={4} className="mb-4">
+                  {product.data.map((datas, idx)=>{
+                                return (
+                                  <Col md={4} key={datas.id} style={{cursor: 'pointer'}} onClick={()=>productDetail(datas.id)} className="mb-4">
+                                  <Image src={datas.product_images[0]?.image ? datas.product_images[0]?.image : empty} width={360} height={450} alt="chair"/>
+                                  <div className="text-md-start ms-4">
+                                    <p className='fs-5'>{datas.name}</p>
+                                    <div className='fs-6 fw-bold'>Rp. {datas.price}</div>
+                                  </div>
+                                </Col>
+                                )
+                            })}
+
+                    {/* <Col md={4} className="mb-4">
                       <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
                       <div className="text-md-start ms-auto me-auto">
                         <p className='fs-5'>Coaster 506222-CO Loveseat</p>
@@ -129,7 +153,7 @@ export default function Home() {
                         <p className='fs-5'>Coaster 506222-CO Loveseat</p>
                         <div className='fs-6 fw-bold'>Rp. 900.000</div>
                       </div>
-                    </Col>
+                    </Col> */}
                   </Row>
                   <div className='mt-5 mb-5 d-flex align-items-center justify-content-center'>
                       <div className={homepage.lineHorizontal}></div>
