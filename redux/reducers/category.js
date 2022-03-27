@@ -9,6 +9,11 @@ const category = (state = dataCategory, action) => {
             state.data = data
             return {...state }
         }
+        case 'GET_CATEGORY_TOTAL': {
+            const data = action.payload
+            state.data = data
+            return {...state }
+        }
         default: {
             return {...state }
         }

@@ -20,30 +20,60 @@ const SellingProduct = () => {
   const hiddenFileInput = useRef(null)
   const [modalShow, setModalShow] = React.useState(false);
   const [data, setData] = useState({})
+  const [img, setImg] = useState();
 
   useEffect(() => {
     dispatch(getCategory);
   }, [])
 
+  // const [image, setImage] = useState(null);
+  const [createObjectURL, setCreateObjectURL] = useState(null);
+
+  const uploadToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+
+      setImage(i);
+      setCreateObjectURL(URL.createObjectURL(i));
+    }
+  };
+
+  const uploadToServer = async (e) => {
+    e.preventDefault()
+    const image = document.getElementById('image').files[0];
+    const datas = {image}
+    await dispatch(createProductSeller(datas))
+  };
+
+
   const fileInputHandler = (e) => {
     const reader = new FileReader();
     const image = e.target.files[0];
+
+    if (e.target.files && e.target.files[0]) {
+      setImg(URL.createObjectURL(e.target.files[0]));
+    }
 
     const productImage = document.querySelector('#product-image');
     reader.readAsDataURL(image);
 
     reader.onload = (e) => {
       productImage.src = e.target.result;
-      productImage.className += ' rounded-circle'
+      productImage.className += ' rounded'
     };
-    setData({
-      image: e.target.files[0]
-    });
+    setData({image})
   };
   
   const uploadFile = (e) => {
     e.preventDefault()
     hiddenFileInput.current.click()
+  }
+
+  const imageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImg(URL.createObjectURL(event.target.files[0]));
+    }
+    setData({image})
   }
   
 
@@ -56,8 +86,11 @@ const SellingProduct = () => {
     const condition  = e.target.elements["condition"].value;
     const id_seller = auth.userData.id;
     const id_category = document.querySelector('.category .form-check-input:checked').value;
-    const data = {name, description, stock, price, condition, id_seller, id_category}
-    dispatch(createProductSeller(data))
+    const image = data.image
+    // const image = document.getElementById('image').files[0];
+    const datas = {name, description, stock, price, condition, id_seller, id_category, image}
+    dispatch(createProductSeller(datas))
+    window.scrollTo(0, 0)
   }
   return (
     <Layout>
@@ -76,11 +109,11 @@ const SellingProduct = () => {
                 <NavbarProfile />    
             </div> 
         <Form  onSubmit={addProductHandler}> 
-        {auth.errMsg &&
+        {/* {auth.errMsg &&
           <div className="alert alert-warning fade show" role="alert" aria-label="Close">
             <strong>Error</strong>
         </div>
-        }
+        } */}
         {productSeller.data  &&
           <Modals show={modalShow} onHide={() => setModalShow(false)} />
         }
@@ -167,7 +200,7 @@ const SellingProduct = () => {
                 </div>
               </Col>
               <Col xs={12} md={4}>
-                <div height={30} className="my-3">
+                <div height={30} className="my-3 position-relative">                
                   <Image
                     id='product-image'
                     name='product-image'
@@ -176,21 +209,40 @@ const SellingProduct = () => {
                     height="500px"
                     className="img-thumbnail"
                     alt="..." />
-                    
-                </div>
-                <Button block variant='pallet-3 my-1 radius save-1' onClick={(e) =>uploadFile(e)}> Choose from Gallery </Button>
-                    <input type="file"
+                    <Button block variant='pallet-2 radius mt-1 d-flex flex-row justify-content-center' onClick={(e) => uploadFile(e)}> Choose from Gallery </Button>
+                  <input type="file"
                       ref={hiddenFileInput}
                       className='d-none'
-                      name='image'
+                      name='picture'
                       accept='image'
-                      onChange={(e) => fileInputHandler(e)}
+                      onChange={fileInputHandler}
+                  />
+                {/* <Image
+                    id='product-image'
+                    name='product-image'
+                    src={empty}
+                    width="500px"
+                    height="500px"
+                    className="img-thumbnail"
+                    alt="..." />
+                <form>
+                    <input type="file"
+                      ref={hiddenFileInput}
+                      className='d-none position-absolute'
+                      name='image'
+                      id='image'
+                      accept='image'
+                      onChange={uploadToClient}
                     />
+                  </form>                     */}
+                </div>
+                {/* <Button block variant='pallet-3 my-1 radius save-1' onClick={uploadToServer}> Choose from Gallery </Button>                 */}
               </Col>
             </Row>
             <Button onClick={()=>setModalShow(true)} type='submit' className='mt-4 px-4' variant="color2" size="lg" active>
               Sell Product
             </Button>{' '}
+            <Modals show={modalShow} onHide={() => setModalShow(false)} />
           </Col>
           <Col xs={12} md={3}>
 
