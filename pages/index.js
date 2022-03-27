@@ -25,7 +25,7 @@ export default function Home() {
   const menu = [
     {onclick: 'newProduct', name: 'New Product'},
     {onclick: 'hotTrend', name: 'Hot Trend'},
-    {onclick: 'sellingOffer', name: 'Selling Offer'},
+    {onclick: 'sellOff', name: 'Sell Off'},
     
   ]
 
@@ -213,6 +213,152 @@ export default function Home() {
                       <Link href="/product-list"><a className="ms-3 fs-6 text-color3 text-decoration-none fw-bold">VIEW MORE PRODUCTS</a></Link>
                   </div>
               </Container>
+          </section>
+          </>
+          }
+          {active === 'hotTrend' &&
+          <>
+          <section>
+            <Container>
+            <Row className='mt-5 mb-5 text-center'>
+            <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-auto me-auto">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+            </Row>
+            </Container>
+          </section>
+          </>
+          }
+          {active === 'sellOff' &&
+          <>
+          <section>
+            <Container>
+            <Row className='mt-5 mb-5 text-center'>
+            <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-auto me-auto">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+                    <Col md={4} className="mb-4">
+                      <Image src="/images/chair.png" width={360} height={450} alt="chair"/>
+                      <div className="text-md-start ms-4">
+                        <p className='fs-5'>Coaster 506222-CO Loveseat</p>
+                        <div className='fs-6 fw-bold'>Rp. 900.000</div>
+                      </div>
+                    </Col>
+            </Row>
+            </Container>
           </section>
           </>
           }
