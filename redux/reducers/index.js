@@ -15,20 +15,20 @@ import category from './category'
 import paymentMethod from './paymentMethod'
 
 const rootReducers = combineReducers({
-    auth,
-    productDetail,
-    counter,
-    pages,
-    product,
-    color,
-    size,
-    buttons,
-    users,
-    productSeller,
-    cart,
-    favorite,
-    category,
-    paymentMethod
+  auth,
+  productDetail,
+  counter,
+  pages,
+  product,
+  color,
+  size,
+  buttons,
+  users,
+  productSeller,
+  cart,
+  favorite,
+  category,
+  paymentMethod
 })
 
 export default rootReducers
