@@ -9,19 +9,18 @@ import size from './size'
 import buttons from './buttons'
 import users from './users';
 import productSeller from './productSeller';
-import pages from './pages'
 
 const rootReducers = combineReducers({
   auth,
   productDetail,
   counter,
   pages,
-    product,
-    color,
-    size,
-    buttons,
-    users,
-    productSeller,
+  product,
+  color,
+  size,
+  buttons,
+  users,
+  productSeller,
 })
 
 export default rootReducers
