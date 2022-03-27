@@ -20,6 +20,13 @@ const auth = (state = initialState, action) => {
         ...newState
       }
     }
+    case 'AUTH_LOGOUT': {
+      state.token = null
+      state.userData = {}
+      window.localStorage.removeItem('token')
+      state.successMsg= ''
+      return { ...state }
+  }
     case 'AUTH_REGISTER': {
       const newState = {
         successMsg: action.payload.message

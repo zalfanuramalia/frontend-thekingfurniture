@@ -38,7 +38,7 @@ export const register = (emailRegis, passwordRegis, id_role) => {
     } catch (e) {
       dispatch({
         type: 'AUTH_ERR',
-        payload: e.response.data.message
+        payload: e.response.data?.message
       })
     }
   }
@@ -63,6 +63,20 @@ export const forgot = (email) => {
       })
     }
   }
+}
+
+export const logout = (dispatch) => {
+  try {
+    dispatch({type: 'TOGGLE_LOADING'})
+    dispatch({type: 'AUTH_LOGOUT'})
+    window.scrollTo(0, 0)
+    dispatch({type: 'TOGGLE_LOADING'})
+  } catch (e) {
+    dispatch({
+      type: 'AUTH_ERR',
+      payload: e.response.data.message
+    })
+  } 
 }
 
 export const changePassword = (data) => {

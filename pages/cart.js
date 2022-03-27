@@ -9,17 +9,21 @@ import carts from "../styles/cart.module.scss"
 import { useDispatch } from 'react-redux'
 import { increment, decrement } from '../redux/actions/buttons'
 import { useSelector } from 'react-redux'
+import { getCart } from '../redux/actions/cart'
 
 const Cart = ()=>{
   const buttons = useSelector(state=>state.buttons)
-  const [cart,setCart] = useState([])
+  const { cart, pages } = useSelector(state=>state)
+  const {totalPrice, setTotalPrice} = useState({value: 0})
+  // const [cart,setCart] = useState([])
   const [title,setTitle] = useState([])
   const dispatch = useDispatch()
 
   useEffect(()=>{
+    getCart(dispatch)
     setTitle(["Products","Price","Quantity","Total"])
-    setCart([{name:"Fabric Mid Century Chair",image:"chair1.png",price:"$10.50",quantity: buttons?.value,total:"$21.00"},
-    {name:"Chair in Dark Grey",image:"chair2.png",price:"$10.50",quantity: buttons?.value,total:"$10.50"}])
+    // setCart([{name:"Fabric Mid Century Chair",image:"chair1.png",price:"$10.50",quantity: buttons?.value,total:"$21.00"},
+    // {name:"Chair in Dark Grey",image:"chair2.png",price:"$10.50",quantity: buttons?.value,total:"$10.50"}])
   },[])
 
 const onIncrement = (e)=>{
@@ -62,34 +66,36 @@ const onIncrement = (e)=>{
                     })
                   }
               </Row>
-                {
-                  cart.map((item)=>{
+                {!pages.isLoading && <div>
+                  {cart.data?.map((item)=>{
                     return(
                       <Row key={item.name}>
                         <Col lg={6}>
                           <div className='d-flex flex-row align-items-center'>
                             <span className="py-5 me-3"><Button className={carts.button}><FaTrashAlt className="fs-5"/></Button></span>
-                            <Image src={`/images/${item.image}`} width={69} height={83} alt ="product"/>
-                            <span className="ms-5">{item.name}</span>
+                            <Image src={item.product.product_images[0]?.image ? item.product.product_images[0]?.image : '/images/chair.png'} width={69} height={83} alt ="product"/>
+                            <span className="ms-5">{item.product.name}</span>
                           </div>
                         </Col>
                         <Col xs={6} lg={2} className='my-auto mt-4 mt-lg-auto text-center'>
-                            <span className="fw-bold">{item.price}</span>
+                            <span className="fw-bold">{item.product.price.toLocaleString('id-ID')}</span>
                         </Col>
                         <Col  xs={6} lg={2} className='my-auto mt-4 mt-lg-auto text-center'>
                             <div className="d-flex flex-row justify-content-between align-items-center">
                               <Button onClick={onDecrement} className={carts.button}>-</Button>
-                              <div className={carts.form}>{item.quantity}</div>
+                              <div className={carts.form}>{item.qty}</div>
                               <Button onClick={onIncrement} className={carts.button}>+</Button>
                             </div>
                         </Col>
                         <Col xs={6} lg={2} className='my-auto mt-4 mt-lg-auto text-center'>
                           <span className="text-muted d-inline d-lg-none">Total: </span>
-                          <span className="fw-bold">{item.total}</span>
+                          <span className="fw-bold">{(item.qty * item.product.price).toLocaleString('id-ID')}</span>
                         </Col>
                       </Row>
                     )
-                  })
+                  })}
+                </div>
+                  
                 }
               <div className="d-md-flex justify-content-between mt-5">
                 <div className={`${carts.cupon} d-md-flex mb-5 w-md-50`}>
