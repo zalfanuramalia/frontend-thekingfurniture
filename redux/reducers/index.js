@@ -12,6 +12,7 @@ import productSeller from './productSeller';
 import cart from './cart'
 import favorite from './favorite'
 import category from './category';
+import transactionSeller from './transactionSeller'
 
 const rootReducers = combineReducers({
     auth,
@@ -26,7 +27,8 @@ const rootReducers = combineReducers({
     productSeller,
     cart,
     favorite,
-    category
+    category,
+    transactionSeller
 })
 
 export default rootReducers
