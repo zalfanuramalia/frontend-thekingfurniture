@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { useState,useEffect } from "react"
+import { useRouter } from 'next/router'
 import { Row, Col, Container, Form } from "react-bootstrap"
 import Image from "next/image"
 import Button from "../components/Button"
@@ -9,9 +10,10 @@ import carts from "../styles/cart.module.scss"
 import { useDispatch } from 'react-redux'
 import { increment, decrement } from '../redux/actions/buttons'
 import { useSelector } from 'react-redux'
-import { getCart } from '../redux/actions/cart'
+import { deleteCart, getCart } from '../redux/actions/cart'
 
 const Cart = ()=>{
+  const router = useRouter()
   const buttons = useSelector(state=>state.buttons)
   const { cart, pages } = useSelector(state=>state)
   const {totalPrice, setTotalPrice} = useState({value: 0})
@@ -35,7 +37,9 @@ const onIncrement = (e)=>{
     e.preventDefault()
     dispatch(decrement())
   }
-
+  const toCheckout = () => {
+    router.push('/cart-checkout')
+  }
   return(
       <>
         <Head>
@@ -72,7 +76,7 @@ const onIncrement = (e)=>{
                       <Row key={item.name}>
                         <Col lg={6}>
                           <div className='d-flex flex-row align-items-center'>
-                            <span className="py-5 me-3"><Button className={carts.button}><FaTrashAlt className="fs-5"/></Button></span>
+                            <span className="py-5 me-3" onClick={async()=>{deleteCart(dispatch,item.id); window.scrollTo(0,0); await getCart(dispatch);}}><Button className={carts.button}><FaTrashAlt className="fs-5"/></Button></span>
                             <Image src={item.product.product_images[0]?.image ? item.product.product_images[0]?.image : '/images/chair.png'} width={69} height={83} alt ="product"/>
                             <span className="ms-5">{item.product.name}</span>
                           </div>
@@ -133,7 +137,7 @@ const onIncrement = (e)=>{
                     </Row>
                 </div>
                 <div className="ms-md-4 mb-5 d-grid gap-2">
-                  <Button styleCart={`${carts.buttonCo}`}>Procced To Check Out</Button>
+                  <Button onClick={toCheckout} styleCart={`${carts.buttonCo}` }>Procced To Check Out</Button>
                 </div>
             </Col>
           </Row>
