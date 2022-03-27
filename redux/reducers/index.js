@@ -9,19 +9,23 @@ import size from './size'
 import buttons from './buttons'
 import users from './users';
 import productSeller from './productSeller';
+import cart from './cart'
+import favorite from './favorite'
 import category from './category';
 
 const rootReducers = combineReducers({
-  auth,
-  productDetail,
-  counter,
-  pages,
+    auth,
+    productDetail,
+    counter,
+    pages,
     product,
     color,
     size,
     buttons,
     users,
     productSeller,
+    cart,
+    favorite,
     category
 })
 

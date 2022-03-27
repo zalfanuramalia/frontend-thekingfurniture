@@ -60,7 +60,7 @@ const Navbar = () => {
                   PAGES
                 </a>
               </Link>
-              <ul className="dropdown-menu bg-color1" aria-labelledby="navbarDropdown">
+              <ul className={`${styles.pages} dropdown-menu bg-color1`} aria-labelledby="navbarDropdown">
                 <li>
                   <Link href='/about-us'>
                   <a className="">About US</a>
@@ -89,9 +89,9 @@ const Navbar = () => {
                   SHOP
                 </a>
               </Link>
-              <ul className="dropdown-menu bg-color1" aria-labelledby="navbarDropdown">
+              <ul className={`${styles.shop} dropdown-menu bg-color1`} aria-labelledby="navbarDropdown">
               <li>
-                <p className="text-light">Other Page</p>
+                <p className="text-light fw-bold">Other Page</p>
                   <Link href='/cart'>
                   <a className="">Shopping Cart</a>
                   </Link>
@@ -102,8 +102,8 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href='/login-register'>
-                  <a className="">My Account</a>
+                  <Link href='/product-list'>
+                  <a className="">Product</a>
                   </Link>
                 </li>
                 <li>
@@ -134,7 +134,7 @@ const Navbar = () => {
               <Link href='/favorite'>
               <button className="btn position-relative ms-lg-1">
                 <BiHeart className="fs-2 text-white"/>
-                <div className={`bg-white position-absolute text-white rounded-circle ${styles.notif}`}>10</div>
+                <div className={`bg-white position-absolute text-white rounded-circle ${styles.notif}`}>0</div>
               </button>
               </Link>
             </li>
@@ -142,19 +142,19 @@ const Navbar = () => {
             <Link href='/cart'>
               <button className="btn position-relative mx-lg-1">
                 <BiCartAlt className="fs-2 text-white"/>
-                <div className={`bg-white position-absolute text-white rounded-circle ${styles.notif}`}>10</div>
+                <div className={`bg-white position-absolute text-white rounded-circle ${styles.notif}`}>0</div>
               </button>
               </Link>
              
             </li>
-            {userToken !== null &&
             <li className="nav-item dropdown ms-lg-3">
               <Link href='/'>
                 <a className="nav-link fw-bold fs-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <Image src='/images/menu.png' layout='intrinsic' alt='menu' width={25} height={25} />
                 </a>
               </Link>
-              <ul className="dropdown-menu bg-color1" aria-labelledby="navbarDropdown">
+              {userToken !== null && 
+              <ul className={`${styles.menu} dropdown-menu bg-color1`} aria-labelledby="navbarDropdown">
                 <li>
                   <Link href='/profile'>
                   <a className="">Profile</a>
@@ -175,13 +175,31 @@ const Navbar = () => {
                   <a className=""><div onClick={logoutHandler}>Logout</div></a>
                   </Link>
                 </li>
-              </ul>
-            </li> }
-            {userToken === null &&
-            <div className="px-3 ms-3">
-              <Link href='/login-register'><a><Button className={`${styles.button} px-4 mx-2`}>Login</Button></a></Link>
-              <Link href='/login-register'><a><Button className={`${styles.button} mx-2`}>Register</Button></a></Link>              
-            </div>}
+              </ul>}
+              {userToken === null && 
+              <ul className={`${styles.menu} dropdown-menu bg-color1`} aria-labelledby="navbarDropdown">
+                <li>
+                  <Link href='/login-register'>
+                  <a className="">Login</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/login-register'>
+                  <a className="">Register</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/chat'>
+                  <a className="">Chat</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/notification'>
+                  <a className="">Notification</a>
+                  </Link>
+                </li>
+              </ul>}
+            </li>
           </ul>
         </div>
       </div>
