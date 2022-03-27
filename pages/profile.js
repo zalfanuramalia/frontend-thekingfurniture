@@ -13,6 +13,8 @@ import { useState, useRef, useEffect } from "react"
 import { getProfile, updateProfile } from "../redux/actions/auth"
 import Button from "../components/Button"
 import carts from "../styles/cart.module.scss"
+import Link from "next/link"
+import { logout } from "../redux/actions/auth"
 
 const ProfileSeller = () => {
     const dispatch = useDispatch()
@@ -20,6 +22,13 @@ const ProfileSeller = () => {
     const role = auth.userData.role
     const genders = (String(auth.userData.gender))
     const hiddenFileInput = useRef(null)
+    const [userToken, setUserToken] = useState()
+
+    useEffect(()=>{
+        const token = window.localStorage.getItem('token')
+        setUserToken(token)
+      },[auth.token])
+
     useEffect(
         () => {
         dispatch(getProfile)
@@ -53,6 +62,12 @@ const ProfileSeller = () => {
         dispatch(updateProfile(data))
         // route.push('/login')
     }
+
+    const logoutHandler = () => {
+        dispatch(logout)
+        setUserToken(null)
+      }
+    
     return (
         <>  
             <Layout>
@@ -139,9 +154,13 @@ const ProfileSeller = () => {
                     </Row>
                 </div>
                 <div className="mt-4 mx-5 px-5 mb-5">
-                    <Button className={`${styles.button} d-flex py-2`}>
-                        <div className="px-2"><MdLogout /></div>
-                        <span className="px-3">Logout</span>
+                    <Button >
+                        <Link href="/">
+                            <a onClick={logoutHandler} className={`${styles.button} d-flex py-2`}>
+                                <div className="px-2"><MdLogout /></div>
+                                <span className="px-3">Logout</span>
+                            </a>
+                        </Link>                        
                     </Button>
                 </div>
                 </Form>
