@@ -22,6 +22,7 @@ const ProductDetail = () => {
   const { pages, favorite } = useSelector(state => state)
   const [liked, setLiked] = useState(false)
   const [userToken, setUserToken] = useState()
+  const [showModalAdd, setShowModalAdd] = useState(false)
   const router = useRouter()
 
   // const product = [
@@ -67,16 +68,20 @@ const ProductDetail = () => {
   const counter = useSelector(state => state.counter)
 
   const onInc = () => {
-    dispatch(increment())
+    if(counter.num < productDetail.data.stock){
+      dispatch(increment())
+    }
   }
   const onDec = () => {
-    dispatch(decrement())
+    if(counter.num > 1){
+      dispatch(decrement())
+    }
   }
 
   const cart = (id) => {
     router.push(`cart/${[id]}`)
   }
-  const addCart = (e) => {
+  const addCart = async(e) => {
     e.preventDefault()
         const data = {
         id_product: router.query.id,
@@ -85,7 +90,11 @@ const ProductDetail = () => {
         address: 'Unset',
     }
     console.log(data)
-    addToCart(dispatch, userToken, data)
+    await addToCart(dispatch, userToken, data)
+    await setShowModalAdd(true)
+    setTimeout(()=> {
+      setShowModalAdd(false)}
+    , 5000)
   }
 
   const likeProduct = async() => {
@@ -193,6 +202,8 @@ const ProductDetail = () => {
                 <p className=''>{productDetail.data?.description}</p>
               </Col>
             </Row>
+            {showModalAdd && 
+            <div className='text-primary bg-white p-5'>Added to cart</div>}
             <Row>
               <Col xl={12} className='text-center mt-5'>
                 <div className='d-flex'>

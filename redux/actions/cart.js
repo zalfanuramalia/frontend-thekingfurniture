@@ -41,3 +41,15 @@ export const deleteCart = async(dispatch, id) => {
         console.log(e)
     }
 }
+
+export const checkoutCart = async(dispatch, id, dataCart) => {
+    try {
+        dispatch({type: 'TOGGLE_LOADING'})
+        const token = window.localStorage.getItem('token')
+        const { data } = await http(token).patch(`/transaction/${id}`, qs.stringify(dataCart))
+        dispatch({type: 'CHECKOUT_CART', payload: data.result})
+        dispatch({type: 'TOGGLE_LOADING'})
+    } catch (e) {
+        console.log(e)
+    }
+}
