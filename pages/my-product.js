@@ -70,8 +70,9 @@ const MyProduct = () => {
             <span className="ms-0 ms-lg-5">Price</span>
           </Col>
         </Row>
-        {productSeller?.datas && <div>
-        {productSeller?.datas.map((datas, index) => {
+        {/* {productSeller?.data.length === 1 && <div className="d-flex justify-content-center align-items-center vh-100">There is No Data Product</div>} */}
+        {productSeller?.data && <div>
+        {productSeller?.data.map((datas, index) => {
           return (
             <Row key={datas?.id} className='my-5'>
               <Col xs={12} sm={6} lg={4} className='d-flex flex-row align-items-center'>

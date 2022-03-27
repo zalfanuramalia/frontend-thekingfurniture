@@ -5,8 +5,18 @@ import NavbarProfile from "../components/NavbarProfile";
 import { BsCheck } from 'react-icons/bs';
 import styles from '../styles/profile.module.scss';
 import Head from "next/head";
+import { getTransactionSeller } from "../redux/actions/transactionSeller";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const MyOrder = () => {
+  const {transactionSeller} = useSelector(state=>state)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getTransactionSeller)
+  },[dispatch]) 
+
   const dataOrder = [
     {pict: '/images/Mask.png', desc: 'Fabric mid century chair', price: 10.50, qty: 2, status: 'sent', total: 21},
     {pict: '/images/Mask.png', desc: 'Fabric mid century chair', price: 10.50, qty: 2, status: 'sent', total: 21}
@@ -51,38 +61,40 @@ const MyOrder = () => {
             <span>Total</span>
           </Col>
         </Row>
-        {dataOrder.map((data, index) => {
+        {transactionSeller?.data && <div>
+        {transactionSeller?.data.map((datas, index) => {
           return (
-            <Row key={index} className='my-5'>
-              <Col lg={4}>
+            <Row key={datas.id} className='my-5'>
+              {/* <Col lg={4}>
                 <div className='d-flex flex-row align-items-center'>
-                  <Image src={data.pict} width={100} height={100} alt='Product picture' />
+                  <Image src={data.product} width={100} height={100} alt='Product picture' />
                   <span className="ms-5">{data.desc}</span>
                 </div>
-              </Col>
+              </Col> */}
               <Col xs={6} lg={2} className='my-auto mt-4 mt-lg-auto'>
                 <div>
                   <span className="text-muted d-inline d-lg-none">Price: </span>
-                  <span className="fw-bold">{formatter.format(data.price)}</span>
+                  <span className="fw-bold">{formatter.format(datas.price)}</span>
                 </div>
               </Col>
               <Col xs={6} lg={2} className='my-auto mt-4 mt-lg-auto'>
                 <span className="text-muted d-inline d-lg-none">Qty: </span>
-                <span>{data.qty < 10 ? '0'+data.qty : data.qty}</span>
+                <span>{datas.qty < 10 ? '0'+datas.qty : datas.qty}</span>
               </Col>
               <Col xs={6} lg={2} className='my-auto mt-4 mt-lg-auto'>
                 <div>
                   <span className="text-muted d-inline d-lg-none">Status order: </span>
-                  <span className={styles.pill}><BsCheck/></span> {data.status}
+                  <span className={styles.pill}><BsCheck/></span> {datas.id_transaction_status}
                 </div>
               </Col>
               <Col xs={6} lg={2} className='my-auto mt-4 mt-lg-auto'>
                 <span className="text-muted d-inline d-lg-none">Total: </span>
-                <span className="fw-bold">{formatter.format(data.total)}</span>
+                <span className="fw-bold">{formatter.format(datas.total)}</span>
               </Col>
             </Row>
           )
         })}
+        </div>}
         <hr className="mb-5"/>
                 </Container>
             </div>

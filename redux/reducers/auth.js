@@ -24,6 +24,7 @@ const auth = (state = initialState, action) => {
       state.token = null
       state.userData = {}
       window.localStorage.removeItem('token')
+      state.successMsg= ''
       return { ...state }
   }
     case 'AUTH_REGISTER': {

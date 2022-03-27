@@ -5,14 +5,20 @@ import { useRouter } from "next/router";
 import { BiSearchAlt2, BiHeart, BiCartAlt } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Button"
-import { useEffect } from "react";
-import { getProfile } from "../redux/actions/auth";
+import { useEffect, useState } from "react";
+import { logout } from "../redux/actions/auth";
 
 const Navbar = () => {
   const route = useRouter();
   const dispatch = useDispatch()
   const {auth} = useSelector(state=>state)
-  const token = window.localStorage.getItem('token')
+  const [userToken, setUserToken] = useState()
+  // const token = window.localStorage.getItem('token')
+
+  useEffect(()=>{
+    const token = window.localStorage.getItem('token')
+    setUserToken(token)
+  },[auth.token])
 
   const searchBtn = (e) => {
     e.preventDefault()
@@ -25,9 +31,8 @@ const Navbar = () => {
   }
 
   const logoutHandler = () => {
-    dispatch({type: 'TOGGLE_LOADING'})
-    dispatch({type: 'AUTH_LOGOUT'})
-    dispatch({type: 'TOGGLE_LOADING'})
+    dispatch(logout)
+    setUserToken(null)
   }
 
   return (
@@ -148,7 +153,7 @@ const Navbar = () => {
                 <Image src='/images/menu.png' layout='intrinsic' alt='menu' width={25} height={25} />
                 </a>
               </Link>
-              {token !== null && 
+              {userToken !== null && 
               <ul className={`${styles.menu} dropdown-menu bg-color1`} aria-labelledby="navbarDropdown">
                 <li>
                   <Link href='/profile'>
@@ -171,7 +176,7 @@ const Navbar = () => {
                   </Link>
                 </li>
               </ul>}
-              {token === null && 
+              {userToken === null && 
               <ul className={`${styles.menu} dropdown-menu bg-color1`} aria-labelledby="navbarDropdown">
                 <li>
                   <Link href='/login-register'>
