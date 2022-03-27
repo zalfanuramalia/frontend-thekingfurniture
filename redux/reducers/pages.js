@@ -1,5 +1,5 @@
 const initialState = {
-  isLoading: false
+  isLoading: null
 }
 
 const pages = (state = initialState, action) => {
@@ -9,6 +9,10 @@ const pages = (state = initialState, action) => {
       isLoading = !isLoading
       return { ...state }
     }
+    default: {
+      return { ...state }
+    }
+  }
 }
 
 export default pages
