@@ -2,6 +2,9 @@ import { Col, Row, Container, Form } from 'react-bootstrap'
 import Head from 'next/head'
 import Layout from '../components/Layout'
 import styles from '../styles/Wishlist.module.scss'
+import Image from 'next/image'
+import { BsCheck } from 'react-icons/bs';
+import Button from "../components/Button";
 
 const Wishlist = () => {
 
@@ -37,6 +40,27 @@ const Wishlist = () => {
               <span className="ms-0 ms-lg-5">Price</span>
             </Col>
           </Row>
+          {productsWishlist.map(item => {
+            return (
+              <>
+                <Row className='mb-5'>
+                  <Col xs={12} sm={6} lg={4} className='d-flex flex-row align-items-center'>
+                    <Image className={`${styles.image}`} src={item.image} width={170} height={172} alt='wishlist' />
+                    <span className="ps-4">{item.name}</span>
+                  </Col>
+                  <Col xs={12} sm={6} lg={4} className='my-auto'>
+                    <span className="ms-0 ms-lg-5">
+                      <span ><BsCheck /></span> {item.status}
+                    </span>
+                  </Col>
+                  <Col xs={12} sm={12} lg={4} className='my-auto d-flex align-items-center'>
+                    <span className="ms-0 ms-lg-5">{item.price}</span>
+                    <Button className={`${styles.button} px-5 py-2 ms-5`} color='danger'>Add to cart</Button>
+                  </Col>
+                </Row>
+              </>
+            )
+          })}
         </Container>
       </Layout>
     </>
