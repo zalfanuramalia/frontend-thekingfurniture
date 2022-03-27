@@ -135,7 +135,7 @@ export default function Home() {
                   {product.data.map((datas, idx)=>{
                                 return (
                                   <Col md={4} key={datas.id} style={{cursor: 'pointer'}} onClick={()=>productDetail(datas.id)} className="mb-4">
-                                  <Image src={datas.product_images[0]?.image ? datas.product_images[0]?.image : empty} width={360} height={450} alt="chair"/>
+                                  <Image src={datas.product_images[0]?.image ? datas.product_images[0]?.image : '/images/chair.png'} width={360} height={450} alt="chair"/>
                                   <div className="text-md-start ms-4">
                                     <p className='fs-5'>{datas.name}</p>
                                     <div className='fs-6 fw-bold'><NumberFormat value={datas?.price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp. '} ></NumberFormat></div>

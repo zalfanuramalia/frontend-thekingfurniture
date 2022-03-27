@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { Row, Col, Button, Form, DropdownButton, Dropdown } from "react-bootstrap"
 import Input from "../components/Input"
 import carts from "../styles/cart.module.scss"
@@ -8,25 +9,37 @@ import { useEffect, useState } from "react"
 import { getPaymentMethod } from "../redux/actions/paymentMethod"
 import { useDispatch, useSelector } from "react-redux"
 import { RiArrowDropDownLine } from "react-icons/ri"
+import { getCart, checkoutCart } from "../redux/actions/cart"
+import cart from "../redux/reducers/cart"
 
 const SellingProduct = () => {
     const dispatch = useDispatch()
+    const router = useRouter()
+    const { cart } = useSelector(state=>state)
     const { paymentMethod } = useSelector(state=>state)
     const [showPayment, setShowPayment] = useState(false)
     const [activePayment, setActivePayment] = useState(1)
     useEffect(()=>{
-        console.log('as')
         getPaymentMethod(dispatch)
+        getCart(dispatch)
     }, [])
-    const goCheckout = () => {
+    const goCheckout = async() => {
         const recipient_name = document.getElementById('name').value
         const address = document.getElementById('address').value
         const phoneCode = document.getElementById('code').value
         const phone = document.getElementById('phone').value
         const id_payment_method = activePayment
         const phone_number = `${phoneCode}-${phone}`
-        const data = { recipient_name, address, phone_number, id_payment_method}
+        const data = { recipient_name, address, phone_number, id_payment_method, id_transaction_status: 2}
         console.log(data)
+        if (!cart.data) {
+            alert('Your cart is empty')
+        }
+        cart.data.map(element => {
+            checkoutCart(dispatch, element.id, data)
+            console.log(checkoutCart(dispatch, element.id, data))
+        });
+        // await router.push('/cart')
     }
     return (
         <>
@@ -84,7 +97,7 @@ const SellingProduct = () => {
                                     placeholder='Phone Number *'
                                 />
                             </div>
-                            <div className="border d-flex m-0 align-items-center px-3 mt-2" style={{height: '58px', cursor: "pointer"}} onClick={()=>setShowPayment(true)}>
+                            <div className="border d-flex m-0 align-items-center px-3 mt-2" style={{height: '58px', cursor: "pointer"}} onClick={()=>setShowPayment(!showPayment)}>
                                 <div className="col-2 p-3"><Image src={paymentMethod.data[activePayment-1]?.image? paymentMethod.data[activePayment-1]?.image: '/images/chair.png'} alt={paymentMethod.data[activePayment-1]?.name} width={80} height={40} layout="responsive"/></div>
                                 <p className="m-0">Pay with {paymentMethod.data[activePayment-1]?.name}</p>
                                 <p className="ms-auto fs-2 m-0">< RiArrowDropDownLine /></p>
@@ -113,7 +126,7 @@ const SellingProduct = () => {
                             <Button onClick={goCheckout}>Check Out</Button>
                         </Col>
                     </Row>                    
-                </div>                 
+                </div>
             </div>
         </>
     )

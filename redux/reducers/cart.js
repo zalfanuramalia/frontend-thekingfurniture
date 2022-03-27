@@ -8,10 +8,17 @@ const cart = (state = initialState, action) => {
     case 'ADD_CART': {
       const data = action.payload
       state.data = data
-      state.subtotal += data.data.total_price
       return { ...state }
     }
     case 'GET_CART': {
+      const data = action.payload
+      state.data = data
+      if(!Array.isArray(data)){
+        state.data = [data]
+      }
+      return { ...state }
+    }
+    case 'CHECKOUT_CART': {
       const data = action.payload
       state.data = data
       return { ...state }
