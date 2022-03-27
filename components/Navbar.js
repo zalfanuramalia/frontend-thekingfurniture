@@ -97,7 +97,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href='/cart/checkout'>
+                  <Link href='/cart-checkout'>
                   <a className="">Check Out</a>
                   </Link>
                 </li>
